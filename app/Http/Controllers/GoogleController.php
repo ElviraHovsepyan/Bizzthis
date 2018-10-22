@@ -5,29 +5,28 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 
-class FacebookController extends Controller
+class GoogleController extends Controller
 {
-    public function redirectToFacebook()
-    {
-        return Socialite::driver('facebook')->redirect();
+    public function redirectToGoogle(){
+
+        return Socialite::driver('google')->redirect();
     }
 
-    public function handleFacebookCallback(){
-        $user = Socialite::driver('facebook')->user();
+    public function handleGoogleCallback(){
+        $user = Socialite::driver('google')->user();
         $name = $user->getName();
         $email = $user->getEmail();
-        $facebook_id = $user->getId();
-        $check = User::where('facebook_id',$facebook_id)->first();
+        $google_id = $user->getId();
+        $check = User::where('google_id',$google_id)->first();
         if($check){
             $user_id = $check->id;
         } else {
             $user = new User();
             $user->name = $name;
             $user->email = $email;
-            $user->facebook_id = $facebook_id;
+            $user->google_id = $google_id;
             $user->role_id = 3;
             $user->save();
             $user_id = $user->id;

@@ -91,6 +91,4 @@ class User extends Authenticatable
             } else return 'login fails';
         } else return 'login fails';
     }
-
-
 }

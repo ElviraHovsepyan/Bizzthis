@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/auth/facebook', 'FacebookController@redirectToFacebook');
+Route::get('/auth/facebook/callback', 'FacebookController@handleFacebookCallback');
+
+Route::get('/auth/google', 'GoogleController@redirectToGoogle');
+Route::get('/auth/google/callback', 'GoogleController@handleGoogleCallback');
+
 Route::get('/login',                ['uses'=>'AuthController@loginView',                'as'=>'loginView']);
 Route::post('/login',               ['uses'=>'AuthController@login',                    'as'=>'login']);
 Route::get('/register',             ['uses'=>'AuthController@registerView',             'as'=>'registerView']);

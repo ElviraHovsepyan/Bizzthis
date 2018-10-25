@@ -40,7 +40,8 @@ class User extends Authenticatable
     public static $rulesClient = [
         'name'=>'required|string|min:3|max:100',
         'email'=>'required|email|unique:users,email',
-        'password'=>'required|string|min:6|confirmed',
+        'password'=>'required|string|min:6',
+        'repeat'=>'required|same:password',
         'company_name'=>'required|string|min:3|max:100',
         'company_number'=>'required|numeric',
         'address'=>'required|string',
@@ -48,6 +49,14 @@ class User extends Authenticatable
         'last_name'=>'string',
         'telephone'=>'required'
     ];
+
+    public function subcategories(){
+        return $this->belongsToMany('App\Subcategory','user__subcategories','user_id','subcategory_id');
+    }
+
+    public function companies(){
+        return $this->hasOne('App\Company','company_id');
+    }
 
     public static function validate($data){
         if($data['role']=='user') $rules = self::$rulesUser;
@@ -67,21 +76,24 @@ class User extends Authenticatable
         $user->password = Hash::make($data['password']);
         $user->save();
         if($data['role']!='user'){
-            $user_detail_id = User_Detail::addUserDetails($data);
-            $user->user_detail_id = $user_detail_id;
+            $company_id = Company::addUserDetails($data);
+            $user->company_id = $company_id;
             $user->role_id = 2;
 
         } else {
             $user->role_id = 3;
         }
         $user->save();
+        $user_id = $user->id;
+        Auth::loginUsingId($user_id);
     }
 
     public static function login($data){
         $email = $data['email'];
         $password = $data['password'];
-
-        $check = User::where('email',$email)->first();
+        if($data['role'] == 'user') $role_id = 3;
+        else if($data['role'] == 'client') $role_id = 2;
+        $check = User::where([['email',$email],['role_id',$role_id]])->first();
         if($check){
             $hashedPassword = $check->password;
             if(Hash::check($password,$hashedPassword)){

@@ -5,22 +5,21 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 
-class FacebookController extends Controller
+class TwitterController extends Controller
 {
-    public function redirectToFacebook()
-    {
-        return Socialite::driver('facebook')->redirect();
+    public function redirectToTwitter(){
+
+        return Socialite::driver('twitter')->redirect();
     }
 
-    public function handleFacebookCallback(){
-        $user = Socialite::driver('facebook')->user();
+    public function handleTwitterCallback(){
+        $user = Socialite::driver('twitter')->user();
         $name = $user->getName();
         $email = $user->getEmail();
-        $facebook_id = $user->getId();
-        $check = User::where('facebook_id',$facebook_id)->first();
+        $twitter_id = $user->getId();
+        $check = User::where('twitter_id',$twitter_id)->first();
         if($check){
             $user_id = $check->id;
         } else {
@@ -29,7 +28,7 @@ class FacebookController extends Controller
             $user = new User();
             $user->name = $name;
             $user->email = $email;
-            $user->facebook_id = $facebook_id;
+            $user->twitter_id = $twitter_id;
             $user->role_id = 3;
             $user->save();
             $user_id = $user->id;

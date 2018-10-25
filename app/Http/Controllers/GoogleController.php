@@ -23,6 +23,8 @@ class GoogleController extends Controller
         if($check){
             $user_id = $check->id;
         } else {
+            $checkEmail = User::where('email',$email)->first();
+            if($checkEmail) return 'Use another account';
             $user = new User();
             $user->name = $name;
             $user->email = $email;

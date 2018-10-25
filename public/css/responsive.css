@@ -1,0 +1,135 @@
+@media screen and (min-width: 730px) {
+    .wrapper-small{
+        max-width: 700px;
+    }
+}
+@media screen and (min-width: 1140px) {
+    .all-category .modal-dialog {
+        max-width: 1140px;
+        margin-top: 220px;
+    }
+}
+@media screen and (min-width: 1810px) {
+
+    .wrapper{
+        max-width: 1780px;
+    }
+}
+@media screen and (min-width: 561px){
+    .modal-dialog {
+         max-width: 550px;
+    }
+    .all-category .modal-dialog {
+        max-width: 1140px;
+    }
+
+}
+@media screen and (min-width: 992px){
+    .signin-main{
+        padding-top: 200px;
+    }
+    .user-login{
+        padding-top: 70px;
+    }
+    .signin-main .social-list{
+        padding-left: 25%;
+    }
+}
+
+@media only screen and (max-width: 1376px) and (min-width: 1200px){
+
+}
+
+@media screen and (max-width: 991px){
+    .home-page-main table{
+        width: 930px;
+    }
+    /*start data table*/
+    table.data-table {
+        border: 0;
+    }
+    table.data-table caption {
+        font-size: 1.3em;
+    }
+    table.data-table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+    table.data-table tr {
+        display: block;
+        margin-bottom: 40px;
+        border-bottom: 2px solid #b7b5b3;
+        border-top: 2px solid #b7b5b3;
+        border-radius: 16px;
+
+    }
+    table.data-table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        text-align: right;
+    }
+    table.data-table td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: left;
+        width: 25%;
+        font-size: 14px;
+    }
+    table.data-table td:last-of-type:before{
+        width: 0;
+    }
+    table.data-table td:after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+    table.data-table td:last-child {
+        border-bottom: 0;
+    }
+    table.data-table td div,
+    table.data-table td p.txt-info {
+        float: right;
+    }
+    .data-table .chat-block{
+        max-width: 76px;
+        margin-left: auto;
+    }
+    /*data table*/
+    .user-login:after{
+        right: 0;
+        bottom: 60%;
+    }
+    .user-login:before{
+        left: 0;
+    }
+}
+@media screen and (max-width: 767px){
+    .signin-main,main{
+        padding: 30px 0 120px;
+    }
+
+    .all-category .modal-dialog{
+        margin: 30px 0 30px 15px;
+    }
+}
+
+@media screen and (max-width: 560px){
+    .w-sm-100{
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+}
+
+
+
+
+

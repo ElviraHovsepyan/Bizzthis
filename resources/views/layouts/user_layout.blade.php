@@ -17,7 +17,7 @@
     <div class="container ">
         <div class="row">
             <div class="container">
-                <h3 class="font-bold fs-40 text-center mb-4">Bizz This</h3>
+                <a href="{{ route('mainView') }}"><h3 class="font-bold fs-40 text-center mb-4">Bizz This</h3></a>
 @yield('content')
 @section('social')
                     <div class="col-lg-4">

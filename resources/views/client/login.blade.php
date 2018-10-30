@@ -33,7 +33,12 @@
                             <h3 class="font-bold fs-40 text-center mb-4 text-gray">Bizz This</h3>
                             <form action="{{ route('login') }}" method="post" id="base-login">
                                 @csrf
-                                <div class="form-group">
+                                <div class="form-group ps-rl">
+                                    <span class="help-block form-error ps-abs">
+                                        @if(!empty($error))
+                                            {{ $error }}
+                                        @endif
+                                    </span>
                                     <input name="email" type="email" placeholder="E-post" class="form-control fs-18" data-validation="email">
                                     <input name="role" type="hidden" value="client">
                                 </div>

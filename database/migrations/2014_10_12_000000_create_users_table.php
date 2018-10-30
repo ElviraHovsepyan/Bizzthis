@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->integer('role_id')->default(0);
             $table->integer('company_id')->default(0);
             $table->string('name');
+            $table->string('image')->default('default.jpg');
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('facebook_id')->nullable();

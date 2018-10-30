@@ -21,6 +21,12 @@ class CreateCompaniesTable extends Migration
             $table->string('telephone');
             $table->string('address');
             $table->string('post_code');
+            $table->string('logo')->nullable();
+            $table->string('slogan')->nullable();
+            $table->integer('rating')->nullable();
+            $table->string('website')->nullable();
+            $table->string('vat')->nullable();
+            $table->string('cart')->nullable();
             $table->timestamps();
         });
     }

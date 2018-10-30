@@ -13,5 +13,4 @@ class IndexController extends Controller
     public function company(){
         return view('company');
     }
-
 }

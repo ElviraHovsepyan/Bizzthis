@@ -1,3 +1,8 @@
 @media only screen and (min-width: 768px) {
-
+    .prev-page:hover .entypo-left-open-big{
+        margin-right: 12px;
+    }
+    .dashboard-main .menu  a:hover{
+        color: #69aeff !important;
+    }
 }

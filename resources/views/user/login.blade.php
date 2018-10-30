@@ -5,7 +5,12 @@
          <div class="offset-lg-4 col-lg-4">
              <form method="post" action="{{ route('login') }}">
                  @csrf
-                 <div class="form-group">
+                 <div class="form-group ps-rl">
+                     <span class="help-block form-error ps-abs">
+                         @if(!empty($error))
+                             {{ $error }}
+                         @endif
+                     </span>
                      <input name="email" type="email" placeholder="E-post" class="form-control fs-18" data-validation="email">
                      <input name="role" type="hidden" value="user">
                  </div>

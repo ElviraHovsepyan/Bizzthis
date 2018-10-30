@@ -12,17 +12,28 @@
 */
 
 Route::get('/',                     ['uses'=>'IndexController@index',                   'as'=>'mainView']);
-Route::get('/company',              ['uses'=>'IndexController@company',                 'as'=>'companyView']);
-
 
 Route::get('/login',                ['uses'=>'AuthController@loginView',                'as'=>'loginView']);
 Route::post('/login',               ['uses'=>'AuthController@login',                    'as'=>'login']);
 Route::get('/register',             ['uses'=>'AuthController@registerView',             'as'=>'registerView']);
 Route::post('/register',            ['uses'=>'AuthController@register',                 'as'=>'register']);
-Route::get('/logout',               ['uses'=>'AuthController@logout',                   'as'=>'logout']);
+Route::get('/logout/{role}',               ['uses'=>'AuthController@logout',                   'as'=>'logout']);
 
 Route::group(['prefix'=>'client'],function (){
     Route::get('/login',            ['uses'=>'AuthController@clientLoginView',          'as'=>'clientLoginView']);
+    Route::get('/dashboard',        ['uses'=>'ClientController@dashboardView',          'as'=>'dashboardView']);
+    Route::get('/prices',           ['uses'=>'ClientController@prices',                 'as'=>'dashboardPrices']);
+    Route::get('/settings',         ['uses'=>'ClientController@settings',               'as'=>'dashboardSettings']);
+    Route::post('/edit',            ['uses'=>'ClientController@editCompany',            'as'=>'editCompany']);
+});
+
+Route::get('/company',              ['uses'=>'CompanyController@companyDetails',        'as'=>'companyDetails']);
+Route::post('/comment',             ['uses'=>'CompanyController@addComments',           'as'=>'addComments']);
+
+
+Route::group(['middleware'=>'auth'],function (){
+    Route::get('/edit',                ['uses'=>'AuthController@editView',                'as'=>'editView']);
+    Route::post('/edit',               ['uses'=>'AuthController@editProfile',             'as'=>'editProfile']);
 
 });
 

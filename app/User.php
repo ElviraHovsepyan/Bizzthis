@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -50,12 +51,23 @@ class User extends Authenticatable
         'telephone'=>'required'
     ];
 
+    public static $editRules = [
+        'name'=>'string|min:3|max:100',
+        'old_password'=>'string|min:6',
+        'password'=>'string|min:6|confirmed',
+        'pic'=>'image|max:3000'
+    ];
+
     public function subcategories(){
         return $this->belongsToMany('App\Subcategory','user__subcategories','user_id','subcategory_id');
     }
 
     public function companies(){
-        return $this->hasOne('App\Company','company_id');
+        return $this->belongsTo('App\Company','company_id');
+    }
+
+    public function reviews(){
+        return $this->hasMany('App\Review','user_id');
     }
 
     public static function validate($data){
@@ -102,5 +114,39 @@ class User extends Authenticatable
                 return 'success';
             } else return 'login fails';
         } else return 'login fails';
+    }
+
+    public static function editProfile($data,$image){
+        $rules = self::$editRules;
+        $validator = Validator::make($data, $rules);
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+            return $errors;
+        }
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+
+        if($data['name']) $user->name = $data['name'];
+        if(!empty($data['old_password'])){
+            $check = User::find($user_id);
+            $hashedPassword = $check->password;
+            if(!empty($data['password']))$password = $data['password'];
+            else return 'Invalid Password';
+            if(!Hash::check($data['old_password'],$hashedPassword)){
+                return 'Invalid Password';
+            }
+            $user->password = Hash::make($password);
+        }
+        if($image){
+            $name =  $image->getClientOriginalName();
+            $name = explode('.',$name);
+            $ext = end($name);
+            $name = $name[0].Carbon::now()->timestamp;
+            $image->move('images/user_images/', $name.'.'.$ext);
+            $pic = $name.'.'.$ext;
+            $user->image = $pic;
+        }
+        $user->save();
+        return 'success';
     }
 }

@@ -58,10 +58,9 @@ class Company extends Model
         if(!empty($data['telephone'])) $company->telephone = $data['telephone'];
         if(!empty($data['vat'])) $company->vat = $data['vat'];
         if(!empty($data['cart'])) $company->cart = $data['cart'];
-
         if(!empty($data['name'])) $company->users['name'] = $data['name'];
-        if(!empty($data['email'])) $company->users['email'] = $data['telephone'];
-        if(!empty($data['password'])) $company->users['password'] = Hash::make($data['cart']);
+        if(!empty($data['email'])) $company->users['email'] = $data['email'];
+        if(!empty($data['password'])) $company->users['password'] = Hash::make($data['password']);
 
         $company->push();
         return 'success';

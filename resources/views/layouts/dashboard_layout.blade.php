@@ -69,21 +69,21 @@
             <span class="entypo-right-open-big pointer"></span>
         </div>
         <ul class="list-unstyled menu-list pt-3 pb-4">
-            <li class="mb-3">
-                <a class="trans d-flex justify-content-start text-white align-items-center position-relative" href="{{ route('dashboardView') }}">
+            <li class="mb-3 dashboard">
+                <a href="{{ route('dashboardView') }}" class="trans d-flex justify-content-start text-white align-items-center position-relative" >
                     <span class="menu-icon entypo-gauge fs-26"></span>
                     <span class="text ml-2 font-normal text-uppercase">HOME/Dashboard</span>
                 </a>
             </li>
-            <li class="mb-3">
-                <a class="trans d-flex justify-content-start align-items-center position-relative text-white" href="#">
+            <li class="mb-3 insights">
+                <a href="{{ route('dashboardInsights') }}" class="trans d-flex justify-content-start align-items-center position-relative text-white">
                     <span class="menu-icon fa fa-bar-chart fs-26"></span>
                     <span class="text ml-2 font-normal text-uppercase">insights
                          <span class="entypo-right-open-big fs-18"></span>
                     </span>
                 </a>
             </li>
-            <li class="mb-3">
+            <li class="mb-3 prices">
                 <a  href="{{ route('dashboardPrices') }}" class="trans d-flex justify-content-start align-items-center position-relative text-white">
                     <span class="menu-icon entypo-tag fs-26"></span>
                     <span class="text ml-2 font-normal text-uppercase">set your prices
@@ -91,29 +91,28 @@
                     </span>
                 </a>
             </li>
-            <li class="mb-3">
-                <a class="trans d-flex justify-content-start align-items-center position-relative text-white" href="#">
+            <li class="mb-3 profile">
+                <a href="{{ route('dashboardProfile') }}" class="trans d-flex justify-content-start align-items-center position-relative text-white">
                     <span class="menu-icon entypo-users fs-26"></span>
                     <span class="text ml-2 font-normal text-uppercase">Company profile
                          <span class="entypo-right-open-big fs-18"></span>
                     </span>
                 </a>
             </li>
-            <li class="mb-3">
-                <a class="trans d-flex justify-content-start align-items-center position-relative text-white" href="#">
+            <li class="mb-3 invoices">
+                <a href="{{ route('dashboardInvoices') }}" class="trans d-flex justify-content-start align-items-center position-relative text-white">
                     <span class="menu-icon entypo-newspaper fs-26"></span>
                     <span class="text ml-2 font-normal text-uppercase">invoices
                          <span class="entypo-right-open-big fs-18"></span>
                     </span>
                 </a>
             </li>
-            <li class="mb-3">
-                <a  href="{{ route('dashboardSettings') }}" class="trans d-flex justify-content-start align-items-center position-relative text-white">
+            <li class="mb-3 settings">
+                <a href="{{ route('dashboardSettings') }}" class="trans d-flex justify-content-start align-items-center position-relative text-white">
                     <span class="menu-icon fa fa-cog fs-26"></span>
                     <span class="text ml-2 font-normal text-uppercase">settings
                          <span class="entypo-right-open-big fs-18"></span>
                     </span>
-
                 </a>
             </li>
         </ul>
@@ -124,7 +123,8 @@
 <script src="{{asset('js/popper.min.js')}}"></script>
 <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
+<script src="{{asset('js/jquery.form-validator.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 <script src="{{asset('js/client.js')}}"></script>
-
 </body>
 </html>

@@ -21,15 +21,19 @@ Route::get('/logout/{role}',               ['uses'=>'AuthController@logout',    
 
 Route::group(['prefix'=>'client'],function (){
     Route::get('/login',            ['uses'=>'AuthController@clientLoginView',          'as'=>'clientLoginView']);
-    Route::get('/dashboard',        ['uses'=>'ClientController@dashboardView',          'as'=>'dashboardView']);
-    Route::get('/prices',           ['uses'=>'ClientController@prices',                 'as'=>'dashboardPrices']);
-    Route::get('/settings',         ['uses'=>'ClientController@settings',               'as'=>'dashboardSettings']);
-    Route::post('/edit',            ['uses'=>'ClientController@editCompany',            'as'=>'editCompany']);
+    Route::group(['middleware'=>'auth'],function (){
+        Route::get('/dashboard',        ['uses'=>'ClientController@dashboardView',          'as'=>'dashboardView']);
+        Route::get('/prices',           ['uses'=>'ClientController@prices',                 'as'=>'dashboardPrices']);
+        Route::get('/invoices',         ['uses'=>'ClientController@invoices',               'as'=>'dashboardInvoices']);
+        Route::get('/insights',         ['uses'=>'ClientController@insights',               'as'=>'dashboardInsights']);
+        Route::get('/profile',          ['uses'=>'ClientController@profile',                'as'=>'dashboardProfile']);
+        Route::get('/settings',         ['uses'=>'ClientController@settings',               'as'=>'dashboardSettings']);
+        Route::post('/settings',        ['uses'=>'ClientController@editCompany',            'as'=>'editCompany']);
+    });
 });
 
 Route::get('/company',              ['uses'=>'CompanyController@companyDetails',        'as'=>'companyDetails']);
 Route::post('/comment',             ['uses'=>'CompanyController@addComments',           'as'=>'addComments']);
-
 
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/edit',                ['uses'=>'AuthController@editView',                'as'=>'editView']);

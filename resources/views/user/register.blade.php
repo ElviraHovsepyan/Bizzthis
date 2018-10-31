@@ -7,7 +7,7 @@
                 @csrf
                 <div class="form-group">
                     {{--<span class="d-none font-normal">text error</span>--}}
-                    <input name="name" type="text" placeholder="Namn" class="form-control fs-18" data-validation="length" data-validation-length="min6">
+                    <input name="name" type="text" placeholder="Namn" class="form-control fs-18" data-validation="length" data-validation-length="min3">
                     <input name="role" type="hidden" value="user">
                 </div>
                 <div class="form-group">

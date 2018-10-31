@@ -48,7 +48,12 @@
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
 <script src="{{asset('js/jquery.form-validator.min.js')}}"></script>
 <script>
-    $.validate();
+    $(document).ready(function () {
+        $.formUtils.loadModules('security.js');
+        $.validate({
+            modules: 'security'
+        });
+    });
 </script>
 </body>
 </html>

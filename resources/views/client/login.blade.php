@@ -102,7 +102,7 @@
                         <div class="col-sm-6 form-group">
                             <span class="d-none"></span>
                             <label class="text-gray" for="id2">Org.nummer</label>
-                            <input name="company_number" type="text" class="form-control" id="id2" data-validation="required">
+                            <input name="company_number" type="text" class="form-control" id="id2" data-validation="number">
                         </div>
                         <div class="col-sm-6 form-group">
                             <span class="d-none"></span>
@@ -169,7 +169,7 @@
 <script src="{{asset('js/jquery.form-validator.min.js')}}"></script>
 <script>
     $(document).ready(function () {
-        $.formUtils.loadModules('customModule otherCustomModule', 'js/security.js');
+        $.formUtils.loadModules('security.js');
         $.validate({
             modules: 'security'
         });

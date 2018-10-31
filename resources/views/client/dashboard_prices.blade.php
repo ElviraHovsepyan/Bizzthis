@@ -1,6 +1,5 @@
 @extends('layouts.dashboard_layout')
 @section('content')
-    <input type="hidden" value="prices" id="page">
     <div class="bg-white p-3 mb-3">
         <div class="d-flex align-items-center justify-content-start pl-2 mb-4">
             <h4 class="mb-0 mr-5">Category & Prices</h4>

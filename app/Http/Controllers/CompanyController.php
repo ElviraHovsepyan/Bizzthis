@@ -29,6 +29,10 @@ class CompanyController extends Controller
     public function getCompanyRating($id){
         $rates = Review::where('company_id',$id)->get();
         $count = count($rates);
+        if($count < 0){
+            $realRate = 0;
+            return $realRate;
+        }
         $fullRate = 0;
         foreach($rates as $rate){
             $fullRate += $rate->company_rating;
@@ -40,6 +44,10 @@ class CompanyController extends Controller
     public function getServiceRating($id){
         $rates = Review::where('company_id',$id)->get();
         $count = count($rates);
+        if($count < 0){
+            $realRate = 0;
+            return $realRate;
+        }
         $fullRate = 0;
         foreach($rates as $rate){
             $fullRate += $rate->service_rating;
@@ -47,6 +55,4 @@ class CompanyController extends Controller
         $realRate = round($fullRate/$count);
         return $realRate;
     }
-
-
 }

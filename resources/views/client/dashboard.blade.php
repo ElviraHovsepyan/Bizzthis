@@ -1,8 +1,7 @@
 @extends('layouts.dashboard_layout')
 @section('content')
-    <input type="hidden" value="home" id="page">
     <div class="bg-white p-3 text-center mb-3">
-        <img class="w-75" src="../images/dashboard/chart1.png" alt="">
+        <canvas id="popChart" width="600" height="500"></canvas>
     </div>
     <div class="row">
         <div class="col-xl-4 mb-4">
@@ -82,14 +81,14 @@
                         <td data-label="Price Range">
                             <ul class="list-unstyled d-flex align-items-center justify-content-lg-between justify-content-sm-end text-light-gray fs-14">
                                 <li>Low</li>
-                                <li class="border-bottom position-relative pr-range ml-2 mr-2">
-                                    <span class="entypo-record position-absolute" style="left: 4px;"></span>
+                                <li class="position-relative pr-range ml-2 mr-2">
+                                    <input class="priceInputRange" type="range" min="0" max="249" step="1">
                                 </li>
                                 <li>High</li>
                             </ul>
                         </td>
                         <td data-label="Price Rank">
-                            <p class="mb-0 rank fs-14 text-bold pl-3">20/249</p>
+                            <p class="priceInputValue mb-0 rank fs-14 text-bold pl-3"><span>125</span>/249</p>
                         </td>
                     </tr>
                     <tr>
@@ -102,14 +101,14 @@
                         <td data-label="Price Range">
                             <ul class="list-unstyled d-flex align-items-center justify-content-lg-between justify-content-sm-end text-light-gray fs-14">
                                 <li>Low</li>
-                                <li class="border-bottom position-relative pr-range ml-2 mr-2">
-                                    <span class="entypo-record position-absolute" style="left: 10px;"></span>
+                                <li class="position-relative pr-range ml-2 mr-2">
+                                    <input class="priceInputRange" type="range" min="0" max="99" step="1">
                                 </li>
                                 <li>High</li>
                             </ul>
                         </td>
                         <td data-label="Price Rank">
-                            <p class="mb-0 rank fs-14 text-bold pl-3">6/99</p>
+                            <p class="priceInputValue mb-0 rank fs-14 text-bold pl-3"><span>50</span>/99</p>
                         </td>
                     </tr>
                     <tr>
@@ -122,14 +121,14 @@
                         <td data-label="Price Range">
                             <ul class="list-unstyled d-flex align-items-center justify-content-lg-between justify-content-sm-end text-light-gray fs-14">
                                 <li>Low</li>
-                                <li class="border-bottom position-relative pr-range ml-2 mr-2">
-                                    <span class="entypo-record position-absolute" style="left: 14px;"></span>
+                                <li class="position-relative pr-range ml-2 mr-2">
+                                    <input class="priceInputRange" type="range" min="0" max="349" step="1">
                                 </li>
                                 <li>High</li>
                             </ul>
                         </td>
                         <td data-label="Price Rank">
-                            <p class="mb-0 rank fs-14 text-bold pl-3">29/349</p>
+                            <p class="priceInputValue mb-0 rank fs-14 text-bold pl-3"><span>175</span>/349</p>
                         </td>
                     </tr>
                     <tr>
@@ -142,14 +141,14 @@
                         <td data-label="Price Range">
                             <ul class="list-unstyled d-flex align-items-center justify-content-lg-between justify-content-sm-end text-light-gray fs-14">
                                 <li>Low</li>
-                                <li class="border-bottom position-relative pr-range ml-2 mr-2">
-                                    <span class="entypo-record position-absolute" style="left: 20px;"></span>
+                                <li class="position-relative pr-range ml-2 mr-2">
+                                    <input class="priceInputRange" type="range" min="0" max="199" step="1">
                                 </li>
                                 <li>High</li>
                             </ul>
                         </td>
                         <td data-label="Price Rank">
-                            <p class="mb-0 rank fs-14 text-bold pl-3">44/199</p>
+                            <p class="priceInputValue mb-0 rank fs-14 text-bold pl-3"><span>100</span>/199</p>
                         </td>
                     </tr>
                     </tbody>

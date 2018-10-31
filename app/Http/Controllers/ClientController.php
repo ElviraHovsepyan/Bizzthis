@@ -16,21 +16,35 @@ class ClientController extends Controller
         return view('client.dashboard_prices');
     }
 
-    public function settings(){
-        $user_id = Auth::user()->id;
-        $company = Company::with('users')->whereHas('users',function ($query) use ($user_id){
-          $query->where('users.id',$user_id);
-        })->first();
-        return view('client.dashboard_settings')->withCompany($company);
-    }
-
     public function editCompany(Request $request){
         $data = $request->all();
         if(is_null($data['password'])) $data['password'] = '';
         if(is_null($data['password_confirmation'])) $data['password_confirmation'] = '';
         $edit = Company::editCompany($data);
-        if($edit != 'success'){
-            return redirect()->route('dashboardSettings', $edit);
+        return $this->settings($edit === 'success' ? false : $edit);
+    }
+
+    public function settings($warnings = false){
+        $user_id = Auth::user()->id;
+        $company = Company::with('users')->whereHas('users',function ($query) use ($user_id){
+            $query->where('users.id',$user_id);
+        })->first();
+        if($warnings){
+            return view('client.dashboard_settings')->withCompany($company)->withWarning($warnings);
+        } else {
+            return view('client.dashboard_settings')->withCompany($company);
         }
+    }
+
+    public function invoices(){
+        return view('client.dashboard_invoices');
+    }
+
+    public function insights(){
+        return view('client.dashboard_insights');
+    }
+
+    public function profile(){
+        return view('client.dashboard_profile');
     }
 }

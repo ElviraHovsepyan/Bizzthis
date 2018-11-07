@@ -1,145 +1,93 @@
 @extends('layouts.main_layout')
 @section('content')
-    <main class="home-page-main main">
-        <div class="bg-blue pt-5 pb-4">
-            <div class="container wrapper-small">
-                <h4 class="text-white text-center  pb-4">Populara branscher</h4>
-                <div class="row first-list">
-                    <div class="col-md-3 col-sm-6 w-50">
-                        <div  class="bg-white trans pt-4 pb-4">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <div  class="text-center">
-                                    <img src="images/home/Maintenance_64px.png" alt="Maintenance">
-                                    <span class="font-normal d-block">Bygg</span>
-                                </div>
-                            </div>
-                            <ul class="list-unstyled menu-list d-none mt-3">
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Maleri</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Snickare</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Plattsattare</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Rormokare</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 w-50">
-                        <div  class="bg-white trans pt-4 pb-4">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <div  class="text-center">
-                                    <img src="images/home/Hair%20Dryer_64px%20blue.png" alt="Hair Dryer">
-                                    <span class="font-normal d-block">Skonhet</span>
-                                </div>
-                            </div>
-                            <ul class="list-unstyled menu-list d-none mt-3">
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Maleri</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Snickare</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Plattsattare</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Rormokare</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 w-50">
-                        <div  class="bg-white trans pt-4 pb-4">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <div  class="text-center">
-                                    <img src="images/home/Heart%20Health_64px.png" alt="Heart">
-                                    <span class="font-normal d-block">Halsa</span>
-                                </div>
-                            </div>
-                            <ul class="list-unstyled menu-list d-none mt-3">
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Maleri</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Snickare</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Plattsattare</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Rormokare</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6 w-50">
-                        <div  class="bg-white trans pt-4 pb-4">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <div  class="text-center">
-                                    <img src="images/home/Trekking_64px.png" alt="Trekking">
-                                    <span class="font-normal d-block">Fritid</span>
-                                </div>
-                            </div>
-                            <ul class="list-unstyled menu-list d-none mt-3">
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Maleri</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Snickare</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Plattsattare</a>
-                                </li>
-                                <li>
-                                    <a class="text-orange d-block trans position-relative" href="#">Rormokare</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+    <main class="home-page-main main position-relative">
+        <div class="all-category">
+            <div class="bg-dark-blue p-3 position-relative">
+                <button class="entypo-cancel close-filter btn border-0 p-1 fs-26 position-absolute"></button>
+                <div class="d-flex align-items-center justify-content-start mb-4">
+                    <span class="fa fa-filter text-white fs-26"></span>
+                    <p class="mb-0 ml-3 fs-26">Filter</p>
                 </div>
-                <h4 class="text-white text-center  pb-4 mt-5">Populara tjanster</h4>
-                <div class="pl-4 pr-4 second-list">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-6 w-50">
-                            <a href="#" class="bg-white trans pt-3 pb-3 d-flex align-items-center justify-content-center">
-                            <span  class="text-center">
-                                <img class="trans white-img" src="images/home/Barber%20Scissors_64px.png" alt="Barber">
-                                <img class="trans orange-img" src="images/home/white-images/Barber%20Scissors_64px%20white.png" alt="Barber">
-                                <span class="font-normal d-block">Frisor</span>
+                <p class="font-normal text-bold mb-4">Välj filter som passar din sökning</p>
+            </div>
+            <div class="p-3">
+                @if($dimension > 2)
+                    @foreach($categories as $category)
+                    <form class="mt-2 mb-2" action="#" id="dim-form">
+                        <label for="check-{{ $category->id }}" class="larg-check text-white mb-2 font-normal d-table w-100">
+                            <span class="d-table-cell  align-middle fs-22">{{ $category->name }}</span>
+                            <span class="d-table-cell align-middle w-20px">
+                                <input class="d-none" type="checkbox" id="check-{{ $category->id }}">
+                                <span class="entypo-check d-flex justify-content-center align-items-center"></span>
                             </span>
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-sm-6 w-50">
-                            <a href="#" class="bg-white trans pt-3 pb-3 d-flex align-items-center justify-content-center">
-                            <span  class="text-center">
-                               <img class="trans white-img" src="images/home/Hammer_64px.png" alt="Hammer">
-                               <img class="trans orange-img" src="images/home/white-images/Hammer_64px%20white.png" alt="Hammer">
-                                <span class="font-normal d-block">Snickare</span>
+                        </label>
+                        @foreach($category->children as $child)
+                        <label for="check-{{ $child->id }}" class="text-white mb-2 font-normal w-100 d-block">
+                        <span class="d-flex justify-content-between align-items-center w-100 fs-16">
+                            {{ $child->name }}
+                            <input type="checkbox" id="check-{{ $child->id }}">
+                            <span class="entypo-check d-flex align-items-center justify-content-center"></span>
+                        </span>
+                            @foreach($child->children as $grandChild)
+                                <span class="d-block fs-12 pl-3">{{ $grandChild->name }}</span>
+                            @endforeach
+                        </label>
+                        @endforeach
+                    </form>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+        <div class="bg-blue pt-5 pb-4">
+            <div class="container wrapper">
+                <div class="row">
+                    <div class="col-md-3 d-flex align-items-center justify-content-end white-back">
+                        @if($dimension != 1)
+                        <a class="prev-page d-flex align-items-center text-white justify-content-center mr-5" href="{{ route('mainView',['parent'=>$categories[0]->parent]) }}">
+                            <span class="back d-flex align-items-center justify-content-center mr-2">
+                                  <span class="entypo-left-open-big position-relative fs-26 trans"></span>
                             </span>
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-sm-6 w-50">
-                            <a href="#" class="bg-white trans pt-3 pb-3 d-flex align-items-center justify-content-center">
-                            <span  class="text-center">
-                                <img class="trans white-img" src="images/home/Tattoo%20Machine_64px.png" alt="Tattoo">
-                                <img class="trans orange-img" src="images/home/white-images/Tattoo%20Machine_64px%20white.png" alt="Tattoo">
-                                <span class="font-normal d-block">Tatuerare</span>
-                            </span>
-                            </a>
-                        </div>
-                        <div class="col-md-3 col-sm-6 w-50">
-                            <a href="#" class="bg-white trans pt-3 pb-3 d-flex align-items-center justify-content-center">
-                            <span  class="text-center">
-                                <img class="trans white-img" src="images/home/Nails_64px%20blue.png" alt="Nails">
-                                <img class="trans orange-img" src="images/home/white-images/Nails_64px%20white.png" alt="Nails">
-                                <span class="font-normal d-block">Manikyr</span>
-                            </span>
-                            </a>
+                            <span class="ml-4">Bakat</span>
+                        </a>
+                        @endif
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="text-white text-center  pb-4">Välj branch och tjäst</h4>
+                        <div class="row first-list m-height">
+                            @foreach($categories as $category)
+                                <div class="col-md-3 my-col col-sm-6 w-50 pointer main-category">
+                                    <div  class="bg-white trans pt-3 pb-3">
+                                        @if(count($category->children) > 0 && $dimension < 3)
+                                            <a href="{{ route('mainView',['id'=>$category->id]) }}">
+                                        @endif
+                                                <div class="d-flex align-items-center justify-content-center pl-2 pr-2 ">
+                                                    <div  class="text-center">
+                                                        <img src="/images/category_images/{{ $category->image }}" alt="Icon">
+                                                        <span class="font-normal d-block pl-4 pr-4">{{ $category->name }}</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        @if($category->dimension_level == 1)
+                                            <ul class="list-unstyled menu-list d-none mt-3">
+                                                @foreach($category->children as $key => $child)
+                                                    <li class="{{$key < 5 ? '' : 'hidden'}}">
+                                                        @if(count($child->children) > 0)
+                                                            <a class="text-orange d-block trans position-relative" href="{{ route('mainView',['id'=>$child->id]) }}">{{ $child->name }}</a>
+                                                        @else
+                                                            <a class="text-orange d-block trans position-relative" href="{{ route('mainView',['id'=>$category->id]) }}">{{ $child->name }}</a>
+                                                        @endif
+                                                    </li>
+                                                @endforeach
+                                                <li>
+                                                    @if(count($category->children) > 4)
+                                                        <a href="{{ route('mainView',['id'=>$category->id]) }}"><span class="fs-14 text-gray">Visa fler</span></a>
+                                                    @endif
+                                                </li>
+                                            </ul>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -150,7 +98,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-5 col-md-6 pt-5">
-                <h4 class="text-black mb-3">Avstand</h4>
+                <h4 class="text-black mb-3">Avstånd</h4>
                 <ul class="list-unstyled d-flex align-items-center justify-content-between flex-wrap list text-gray">
                     <li class="p-2 trans">0-10km</li>
                     <li class="p-2 trans">10-50km</li>
@@ -172,21 +120,21 @@
             <table class="table mt-5 font-normal">
                 <thead>
                 <tr>
-                    <th class="pl-0">Foretag</th>
-                    <th>Tjanst</th>
+                    <th class="pl-0">Företag</th>
+                    <th>Tjänst</th>
                     <th>Pris</th>
                     <th>
                         <div class="form-group mb-0 entypo-down-open position-relative">
                             <select class="form-control border-0">
-                                <option value="audi" selected>Avstand</option>
+                                <option value="audi" selected>Avstånd</option>
                                 <option value="text">text</option>
                                 <option value="text">text</option>
                                 <option value="text">text</option>
                             </select>
                         </div>
                     </th>
-                    <th>Omdomen</th>
-                    <th>Lankar</th>
+                    <th>Omdömen</th>
+                    <th>Länkar</th>
                 </tr>
                 </thead>
                 <tbody>

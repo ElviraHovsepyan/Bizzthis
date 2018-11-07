@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Http\Helpers\InstagramApi;
+use App\Instagram;
 use App\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -13,7 +16,22 @@ class CompanyController extends Controller
         $company_id = $company->id;
         $rating = $this->getCompanyRating($company_id);
         $reviews = Review::with('users')->where('company_id',$company_id)->orderBy('id', 'desc')->get();
-        return view('company_page')->withCompany($company)->withReviews($reviews)->withRating($rating)->withPage('company');
+
+        $user_id = Auth::user()->id;
+        $insta = Instagram::where('user_id',$user_id)->first();
+        if($insta){
+            $token = $insta->token;
+            $instagram_client = new InstagramApi($token);
+            $user = $instagram_client->getUser();
+            $posts = $instagram_client->getPosts();
+        } else {
+            $posts = false;
+        }
+//        dd($posts);
+//        foreach($posts as $post){
+//            dd($post);
+//        }
+        return view('company_page')->withCompany($company)->withReviews($reviews)->withRating($rating)->withPage('company')->withPosts($posts);
     }
 
     public function addComments(Request $request){

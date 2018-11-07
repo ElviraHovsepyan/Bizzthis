@@ -1,6 +1,6 @@
-@media screen and (min-width: 730px) {
+@media screen and (min-width: 930px) {
     .wrapper-small{
-        max-width: 700px;
+        max-width: 900px;
     }
 }
 @media screen and (min-width: 1810px) {
@@ -15,14 +15,14 @@
     .desk-25{
         width: 25%;
     }
-    .img-control img{
+    /*.img-control img{
         object-fit: cover;
         height: 100%;
     }
     .img-control{
         max-height: 280px;
         overflow: hidden;
-    }
+    }*/
 }
 @media screen and (min-width: 768px){
 

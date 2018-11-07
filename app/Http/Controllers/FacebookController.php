@@ -25,7 +25,7 @@ class FacebookController extends Controller
             $user_id = $check->id;
         } else {
             $checkEmail = User::where('email',$email)->first();
-            if($checkEmail) return 'Use another account';
+            if($checkEmail) return view('user.login')->withError('Use another account');
             $user = new User();
             $user->name = $name;
             $user->email = $email;
@@ -35,5 +35,6 @@ class FacebookController extends Controller
             $user_id = $user->id;
         }
         Auth::loginUsingId($user_id);
+        return redirect()->route('mainView');
     }
 }

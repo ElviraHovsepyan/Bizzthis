@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BizzThis</title>
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
@@ -18,7 +19,7 @@
     <div class="row">
         <div class="col-md-6">
             <h3 class="mb-0 text-uppercase font-normal">Hello <span class="text-bold fs-26">{{ Auth::user()->name }}</span></h3>
-            <p class="fs-14 mb-0">last time you logged in 2018-06-25 13:22 PM</p>
+            <p class="fs-14 mb-0">last time you logged in {{ Auth::user()->last_login }}</p>
         </div>
         <div class="col-md-6">
             <ul class="w-100 list-unstyled d-flex justify-content-end align-items-center flex-wrap">
@@ -126,5 +127,6 @@
 <script src="{{asset('js/jquery.form-validator.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 <script src="{{asset('js/client.js')}}"></script>
+
 </body>
 </html>

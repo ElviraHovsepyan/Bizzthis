@@ -86,6 +86,9 @@ class User extends Authenticatable
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->password = Hash::make($data['password']);
+        $date = Carbon::now()->format('Y-m-d h:i A');
+        $user->last_login = $date;
+        $user->this_login = $date;
         $user->save();
         if($data['role']!='user'){
             $company_id = Company::addUserDetails($data);
@@ -111,6 +114,9 @@ class User extends Authenticatable
             if(Hash::check($password,$hashedPassword)){
                 $user_id = $check->id;
                 Auth::loginUsingId($user_id);
+                $check->last_login = $check->this_login;
+                $check->this_login = Carbon::now()->format('Y-m-d h:i A');
+                $check->save();
                 return 'success';
             } else return 'login fails';
         } else return 'login fails';

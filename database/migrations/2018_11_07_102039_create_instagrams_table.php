@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubcategoriesTable extends Migration
+class CreateInstagramsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateSubcategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('subcategories', function (Blueprint $table) {
+        Schema::create('instagrams', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id');
-            $table->string('name');
-            $table->string('price');
-            $table->string('image')->default('default.jpg');
+            $table->string('user_id');
+            $table->string('insta_id');
+            $table->string('token');
         });
     }
 
@@ -29,6 +28,6 @@ class CreateSubcategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subcategories');
+        Schema::dropIfExists('instagrams');
     }
 }

@@ -30,19 +30,19 @@
                                     {{ $company->slogan }}</p>
                                 <ul class="list-unstyled">
                                     <li class="mb-3">
-                                        <a class="d-flex align-items-center justify-content-start" href="tel:0854068060">
+                                        <a class="d-flex align-items-center justify-content-start" href="#">
                                             <img src="../images/page/blue-phone.png" alt="phone contact">
                                             <span class="ml-3">{{ $company->telephone }}</span>
                                         </a>
                                     </li>
                                     <li class="mb-3">
-                                        <a class="d-flex align-items-center justify-content-start" href="mailto:kundtjanst@k-rauta.se">
+                                        <a class="d-flex align-items-center justify-content-start" href="#">
                                             <img src="../images/page/message.png" alt="phone contact">
                                             <span class="ml-3">{{ $company->users['email'] }}</span>
                                         </a>
                                     </li>
                                     <li class="mb-3">
-                                        <div class="d-flex align-items-center justify-content-start" href="tel:0854068060">
+                                        <div class="d-flex align-items-center justify-content-start" href="#">
                                             <img src="../images/page/clock.png" alt="phone contact">
                                             <span class="ml-3">{{ $company->address }}</span>
                                         </div>
@@ -199,102 +199,34 @@
                 </div>
                 <div class="tab-pane fade" id="portfolio" role="tabpanel">
                     <div class="form-row mt-5">
-                        <div class="col-md-6 mb-4">
-                            <div class="bg-gray p-3">
-                                <div class="img-control">
-                                    <img src="../images/page/img1.png" alt="portfolio">
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="mt-3 mb-0 text-bold">Lorem ipsum dolor sit </p>
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-end mt-3">
-                                        <li class="ml-2">
-                                            <a href="#">
-                                                <span class="fa fa-commenting text-light-gray fs-18 mr-2"></span>
-                                                <span class="text-bold">432</span>
-                                            </a>
-                                        </li>
-                                        <li class="ml-2">
-                                            <a href="#">
-                                                <span class="fa fa-heart text-light-gray fs-18 mr-2"></span>
-                                                <span class="text-bold">432</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="bg-gray p-3">
-                                <div class="img-control">
-                                    <img src="../images/page/img2.png" alt="portfolio">
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="mt-3 mb-0 text-bold">Lorem ipsum dolor sit </p>
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-end mt-3">
-                                        <li class="ml-2">
-                                            <a href="#">
-                                                <span class="fa fa-commenting text-light-gray fs-18 mr-2"></span>
-                                                <span class="text-bold">432</span>
-                                            </a>
-                                        </li>
-                                        <li class="ml-2">
-                                            <a href="#">
-                                                <span class="fa fa-heart text-light-gray fs-18 mr-2"></span>
-                                                <span class="text-bold">432</span>
-                                            </a>
-                                        </li>
-                                    </ul>
+                        @if($posts)
+                        @foreach($posts as $post)
+                            <div class="col-md-6 mb-4">
+                                <div class="bg-gray p-3">
+                                    <div class="img-control" style="background-image: url('{{ $post->images->standard_resolution->url }}')">
+                                       {{-- <img src="{{ $post->images->standard_resolution->url }}" alt="portfolio">--}}
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <p class="mt-3 mb-0 text-bold">Lorem ipsum dolor sit </p>
+                                        <ul class="list-unstyled d-flex align-items-center justify-content-end mt-3">
+                                            <li class="ml-2">
+                                                <a href="#">
+                                                    <span class="fa fa-commenting text-light-gray fs-18 mr-2"></span>
+                                                    <span class="text-bold">{{ $post->comments->count }}</span>
+                                                </a>
+                                            </li>
+                                            <li class="ml-2">
+                                                <a href="#">
+                                                    <span class="fa fa-heart text-light-gray fs-18 mr-2"></span>
+                                                    <span class="text-bold">{{ $post->likes->count }}</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="bg-gray p-3">
-                                <div class="img-control">
-                                    <img src="../images/page/img3.png" alt="portfolio">
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="mt-3 mb-0 text-bold">Lorem ipsum dolor sit </p>
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-end mt-3">
-                                        <li class="ml-2">
-                                            <a href="#">
-                                                <span class="fa fa-commenting text-light-gray fs-18 mr-2"></span>
-                                                <span class="text-bold">432</span>
-                                            </a>
-                                        </li>
-                                        <li class="ml-2">
-                                            <a href="#">
-                                                <span class="fa fa-heart text-light-gray fs-18 mr-2"></span>
-                                                <span class="text-bold">432</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="bg-gray p-3">
-                                <div class="img-control">
-                                    <img src="../images/page/img4.png" alt="portfolio">
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <p class="mt-3 mb-0 text-bold">Lorem ipsum dolor sit </p>
-                                    <ul class="list-unstyled d-flex align-items-center justify-content-end mt-3">
-                                        <li class="ml-2">
-                                            <a href="#">
-                                                <span class="fa fa-commenting text-light-gray fs-18 mr-2"></span>
-                                                <span class="text-bold">432</span>
-                                            </a>
-                                        </li>
-                                        <li class="ml-2">
-                                            <a href="#">
-                                                <span class="fa fa-heart text-light-gray fs-18 mr-2"></span>
-                                                <span class="text-bold">432</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                        @endif
                     </div>
                 </div>
             </div>

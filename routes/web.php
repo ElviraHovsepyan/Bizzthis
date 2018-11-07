@@ -17,11 +17,11 @@ Route::get('/login',                ['uses'=>'AuthController@loginView',        
 Route::post('/login',               ['uses'=>'AuthController@login',                    'as'=>'login']);
 Route::get('/register',             ['uses'=>'AuthController@registerView',             'as'=>'registerView']);
 Route::post('/register',            ['uses'=>'AuthController@register',                 'as'=>'register']);
-Route::get('/logout/{role}',               ['uses'=>'AuthController@logout',                   'as'=>'logout']);
+Route::get('/logout/{role}',        ['uses'=>'AuthController@logout',                   'as'=>'logout']);
 
 Route::group(['prefix'=>'client'],function (){
     Route::get('/login',            ['uses'=>'AuthController@clientLoginView',          'as'=>'clientLoginView']);
-    Route::group(['middleware'=>'auth'],function (){
+    Route::group(['middleware'=>['auth','isClient']],function (){
         Route::get('/dashboard',        ['uses'=>'ClientController@dashboardView',          'as'=>'dashboardView']);
         Route::get('/prices',           ['uses'=>'ClientController@prices',                 'as'=>'dashboardPrices']);
         Route::get('/invoices',         ['uses'=>'ClientController@invoices',               'as'=>'dashboardInvoices']);
@@ -29,6 +29,8 @@ Route::group(['prefix'=>'client'],function (){
         Route::get('/profile',          ['uses'=>'ClientController@profile',                'as'=>'dashboardProfile']);
         Route::get('/settings',         ['uses'=>'ClientController@settings',               'as'=>'dashboardSettings']);
         Route::post('/settings',        ['uses'=>'ClientController@editCompany',            'as'=>'editCompany']);
+        Route::post('/price_dim',       ['uses'=>'ClientController@price_dim',              'as'=>'price_dim']);
+        Route::post('/add_price',       ['uses'=>'ClientController@add_price',              'as'=>'add_price']);
     });
 });
 
@@ -54,5 +56,8 @@ Route::get('/auth/google/callback',     'GoogleController@handleGoogleCallback')
 
 Route::get('/auth/twitter',             ['uses'=>'TwitterController@redirectToTwitter',                 'as'=>'twitter_login']);
 Route::get('/auth/twitter/callback',    'TwitterController@handleTwitterCallback');
+
+Route::get('/auth/instagram',             ['uses'=>'InstagramController@redirectToInstagram',           'as'=>'instagram_login']);
+Route::get('/auth/instagram/callback',    'InstagramController@handleInstagramCallback');
 
 Route::get('/sendmail',                 'AuthController@testMail');

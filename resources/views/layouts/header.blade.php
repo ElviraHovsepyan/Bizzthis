@@ -5,17 +5,17 @@
                 <h1 class="mb-lg-0">
                     <a class="d-block logo" href="{{ route('mainView') }}"></a>
                 </h1>
-                <a href="#" class="orange-line pb-1">Sok timpriser</a>
+                <a href="#" class="orange-line pb-1">Sök timpriser</a>
                 @if(empty($page))
-                <a href="#">Foretog</a>
+                <a href="#">Företog</a>
                 <a href="#">Kontakt</a>
                 @endif
                 <div class="d-flex align-items-center w-sm-100">
                     <a class="d-flex align-items-center location-block" href="#">
                         <img class="location-img trans" src="images/home/Tesla%20Supercharger%20Pin_100px.png" alt="Tesla%20Supercharger%20Pin">
                         <span class="ml-2">
-                            <span class="font-normal d-inline-block w-100 fs-14"> Sok timpriser</span>
-                            <span class="font-bold d-inline-block w-100 fs-18"> Nara dig</span>
+                            <span class="font-normal d-inline-block w-100 fs-12"> Söker tjänster</span>
+                            <span class="font-bold d-inline-block w-100 fs-18"> Nära dig</span>
                         </span>
                     </a>
                 </div>
@@ -28,13 +28,13 @@
                                 <button class="all-categories form-control text-white pointer">Alla Kategorier</button>
                             </div>
                             <div class="col-md-9 form-group mb-2 mt-2">
-                                <input type="search" class="form-control br-0 font-normal pl-5" placeholder="Sok efter en tjanst...">
+                                <input type="search" class="form-control br-0 font-normal pl-5" placeholder="Sök efter en tjänst...">
                                 <span class="entypo-search text-orange"></span>
                             </div>
                         </div>
                     @else
                         <div class="form-group mb-2 mt-2 position-relative">
-                            <input type="search" class="form-control br-0 font-normal pl-5" placeholder="Sok efter en tjanst...">
+                            <input type="search" class="form-control br-0 font-normal pl-5" placeholder="Sök efter en tjänst...">
                             <span class="entypo-search text-orange"></span>
                         </div>
                     @endif

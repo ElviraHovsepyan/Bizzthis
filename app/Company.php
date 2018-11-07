@@ -17,7 +17,6 @@ class Company extends Model
         'post_code'=>'string',
         'last_name'=>'string',
         'password'=>'string|min:6|confirmed',
-
     ];
 
     public function users(){

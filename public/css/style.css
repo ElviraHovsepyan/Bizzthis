@@ -276,22 +276,22 @@ header .entypo-search{
     margin-bottom: 20px;
 }
 .home-page-main .menu-list a{
-    padding-left: 35px;
+    padding-left: 20px;
 }
 .home-page-main .menu-list a:hover:after{
-    left: 8px;
+    left: 4px;
 }
 .home-page-main .menu-list a:hover{
     color: #f2994a;
 }
-.home-page-main .menu-list a:after{
+.home-page-main .menu-list li:not(:last-of-type) a:after{
     content: "";
     display: block;
     position: absolute;
     top: 0;
-    left: 3px;
+    left: 0;
     bottom: 0;
-    width: 21px;
+    width: 15px;
     background: url("../images/home/Right Arrow.png") no-repeat;
     background-size: contain;
     transition: all 0.3s ease;
@@ -304,14 +304,14 @@ header .entypo-search{
     display: block !important;
 }
 .home-page-main  .first-list .bg-white:hover{
-    padding: 0 10px;
     position: absolute;
-    width: 165px;
+    width: 100%;
     left: -5px;
     right: -5px;
-    top: -5px;
+    top: 0;
     margin: auto;
     z-index: 4;
+    min-height: 140px;
 }
 .home-page-main .bg-blue{
     min-height: 500px;
@@ -594,7 +594,6 @@ input.form-control{
     color: mintcream;
     width: 305px;
     overflow: hidden;
-    white-space: nowrap;
     transition: all .2s;
     position: absolute;
     top:0;
@@ -685,6 +684,13 @@ input.form-control{
     width: 18px;
     height: 2px;
     background-color: #575655;
+}
+.white-back .back .entypo-left-open-big:after{
+    background-color: #ffffff;
+}
+.white-back .back{
+    border-color: #ffffff;
+    color: #ffffff;
 }
 .star-img{
     max-width: 34px;
@@ -818,6 +824,14 @@ fieldset,.rating label {
 .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
 .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 /*--end tab--*/
+.img-control{
+    min-height: 360px;
+    overflow: hidden;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
 /*--end page--*/
 
 /*--start dashboard page--*/
@@ -979,14 +993,18 @@ main.open-block .category{
     min-width: 130px;
     padding: 6px;
     text-align: center;
-    border-radius: 18px;
+    /*border-radius: 18px;*/
     display: inline-block;
+    color: grey;
 }
 main.open-block table.border-0 th{
     padding-top: 0;
 }
+.bg-light-blue{
+    background-color: #F2F2F8;
+}
 .bg-violet{
-    background-color: #8785ff;
+    background-color: #8785FF;
 }
 .rank{
     color: #14abb4;

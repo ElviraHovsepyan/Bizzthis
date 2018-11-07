@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Company;
+use App\Price;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,10 +12,6 @@ class ClientController extends Controller
 {
     public function dashboardView(){
         return view('client.dashboard');
-    }
-
-    public function prices(){
-        return view('client.dashboard_prices');
     }
 
     public function editCompany(Request $request){
@@ -46,5 +44,37 @@ class ClientController extends Controller
 
     public function profile(){
         return view('client.dashboard_profile');
+    }
+
+    public function prices(){
+        $user_id = Auth::user()->id;
+        $prices = Price::with('categories')->where('user_id',$user_id)->get();
+        return view('client.dashboard_prices')->withPrices($prices);
+    }
+
+    public function price_dim(Request $request){
+        $dim = $request->dim;
+        $id = $request->id;
+        if($dim == 1){
+            $categories = Category::with('children.children')->where('dimension_level',$dim)->get();
+        } else {
+            $categories = Category::with('children.children')->where('parent',$id)->get();
+        }
+        return json_encode($categories);
+    }
+
+    public function add_price(Request $request){
+        $id = $request->id;
+        $price = $request->price;
+        if(!is_numeric($price)){
+            return 'false';
+        } else {
+            $obj = new Price();
+            $obj->user_id = Auth::user()->id;
+            $obj->category_id = $id;
+            $obj->price = $price;
+            $obj->save();
+            return 'success';
+        }
     }
 }

@@ -8,7 +8,18 @@ class Category extends Model
 {
     public $timestamps = false;
 
-    public function subcategories(){
-        return $this->hasMany('App\Subcategory','category_id');
+    public function parent()
+    {
+        return $this->belongsTo('App\Category', 'parent','id');
     }
+
+    public function children()
+    {
+        return $this->hasMany('App\Category', 'parent','id');
+    }
+
+    public function prices(){
+        return $this->hasMany('App\Price','category_id');
+    }
+
 }

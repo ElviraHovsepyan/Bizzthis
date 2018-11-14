@@ -34,12 +34,14 @@ Route::group(['prefix'=>'client'],function (){
     });
 });
 
-Route::get('/company',              ['uses'=>'CompanyController@companyDetails',        'as'=>'companyDetails']);
-Route::post('/comment',             ['uses'=>'CompanyController@addComments',           'as'=>'addComments']);
-
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/edit',                ['uses'=>'AuthController@editView',                'as'=>'editView']);
     Route::post('/edit',               ['uses'=>'AuthController@editProfile',             'as'=>'editProfile']);
+    Route::get('/company',             ['uses'=>'CompanyController@companyDetails',       'as'=>'companyDetails']);
+    Route::post('/comment',            ['uses'=>'CompanyController@addComments',          'as'=>'addComments']);
+    Route::get('/admin',               ['middleware'=>'IsAdmin','uses'=>'AdminController@adminView',                'as'=>'adminView']);
+    Route::get('/client_edit',         ['middleware'=>'IsAdmin','uses'=>'AdminController@client_edit',              'as'=>'client_edit']);
+    Route::post('/client_edit',        ['middleware'=>'IsAdmin','uses'=>'AdminController@edit',                     'as'=>'edit']);
 
 });
 
@@ -57,7 +59,9 @@ Route::get('/auth/google/callback',     'GoogleController@handleGoogleCallback')
 Route::get('/auth/twitter',             ['uses'=>'TwitterController@redirectToTwitter',                 'as'=>'twitter_login']);
 Route::get('/auth/twitter/callback',    'TwitterController@handleTwitterCallback');
 
-Route::get('/auth/instagram',             ['uses'=>'InstagramController@redirectToInstagram',           'as'=>'instagram_login']);
-Route::get('/auth/instagram/callback',    'InstagramController@handleInstagramCallback');
+Route::get('/auth/instagram',           ['uses'=>'InstagramController@redirectToInstagram',           'as'=>'instagram_login']);
+Route::get('/auth/instagram/callback',  'InstagramController@handleInstagramCallback');
 
 Route::get('/sendmail',                 'AuthController@testMail');
+
+

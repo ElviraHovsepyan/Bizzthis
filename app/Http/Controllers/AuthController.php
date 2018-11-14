@@ -18,16 +18,19 @@ class AuthController extends Controller
     public function login(Request $request){
         $data = $request->all();
         $login = User::login($data);
-        if($login != 'success'){
+        if($login == 'login fails'){
             if($request->role == 'user') {
                 return view('user.login')->withError('Invalid Email or password');
             }
             else return view('client.login')->withError('Invalid Email or password');
         } else {
-            if($request->role == 'user') {
+            if($login == 3) {
                 return redirect()->route('mainView');
+            } else if($login == 2){
+                return redirect()->route('dashboardView');
+            } else if($login == 1){
+                return redirect()->route('adminView');
             }
-            else return redirect()->route('dashboardView');
         }
     }
 

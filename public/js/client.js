@@ -104,11 +104,7 @@ $(document).ready(function () {
             var categories = JSON.parse(response);
             for(var i in categories){
                 var child;
-                if(categories[i]['children'].length < 1){
-                    child = false
-                } else {
-                    child = true;
-                }
+                child = (categories[i]['children'].length >= 1);
                 $(selector).append('<li class="list-group-item pointer" data-id="'+categories[i]['id']+'" data-child="'+child+'" data-dimension="'+categories[i]['dimension_level']+'">'+categories[i]['name']+'<span><i class="fa fa-fw fa-arrow-right" aria-hidden="true"></i></span></li>');
             }
         });

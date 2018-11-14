@@ -20,7 +20,6 @@ class IndexController extends Controller
             $dim = $categories[0]->dimension_level;
         } else {
             $categories = Category::with('children')->where('dimension_level',1)->get();
-
             $dim = 1;
         }
         return view('main_page')->withCategories($categories)->withDimension($dim);

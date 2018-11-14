@@ -106,9 +106,13 @@ class User extends Authenticatable
     public static function login($data){
         $email = $data['email'];
         $password = $data['password'];
-        if($data['role'] == 'user') $role_id = 3;
-        else if($data['role'] == 'client') $role_id = 2;
-        $check = User::where([['email',$email],['role_id',$role_id]])->first();
+        if($data['role'] == 'user'){
+            $check = User::where('email',$email)->first();
+        }
+        else if($data['role'] == 'client') {
+            $role_id = 2;
+            $check = User::where([['email',$email],['role_id',$role_id]])->first();
+        }
         if($check){
             $hashedPassword = $check->password;
             if(Hash::check($password,$hashedPassword)){
@@ -117,7 +121,7 @@ class User extends Authenticatable
                 $check->last_login = $check->this_login;
                 $check->this_login = Carbon::now()->format('Y-m-d h:i A');
                 $check->save();
-                return 'success';
+                return $check->role_id;
             } else return 'login fails';
         } else return 'login fails';
     }

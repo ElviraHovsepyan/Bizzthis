@@ -47,7 +47,7 @@
                             <span class="back d-flex align-items-center justify-content-center mr-2">
                                   <span class="entypo-left-open-big position-relative fs-26 trans"></span>
                             </span>
-                            <span class="ml-4">Bakat</span>
+                            <span class="ml-4">Bakåt</span>
                         </a>
                         @endif
                     </div>

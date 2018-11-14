@@ -16,7 +16,6 @@ class CompanyController extends Controller
         $company_id = $company->id;
         $rating = $this->getCompanyRating($company_id);
         $reviews = Review::with('users')->where('company_id',$company_id)->orderBy('id', 'desc')->get();
-
         $user_id = Auth::user()->id;
         $insta = Instagram::where('user_id',$user_id)->first();
         if($insta){
@@ -27,11 +26,7 @@ class CompanyController extends Controller
         } else {
             $posts = false;
         }
-//        dd($posts);
-//        foreach($posts as $post){
-//            dd($post);
-//        }
-        return view('company_page')->withCompany($company)->withReviews($reviews)->withRating($rating)->withPage('company')->withPosts($posts);
+        return view('company_page',['company'=>$company,'reviews'=>$reviews,'rating'=>$rating,'page'=>'company','posts'=>$posts]);
     }
 
     public function addComments(Request $request){
@@ -62,7 +57,7 @@ class CompanyController extends Controller
     public function getServiceRating($id){
         $rates = Review::where('company_id',$id)->get();
         $count = count($rates);
-        if($count < 0){
+        if($count <= 0){
             $realRate = 0;
             return $realRate;
         }

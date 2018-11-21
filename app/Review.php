@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\CompanyController;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,5 +21,9 @@ class Review extends Model
         if($data['company_rating']) $review->company_rating = $data['company_rating'];
         if($data['service_rating']) $review->service_rating = $data['service_rating'];
         $review->save();
+        if($data['company_rating']){
+            CompanyController::getCompanyRating($data['company_id']);
+        }
+        CompanyController::getReviewsCount($data['company_id']);
     }
 }

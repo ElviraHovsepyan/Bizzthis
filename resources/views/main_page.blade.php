@@ -13,27 +13,29 @@
             <div class="p-3">
                 @if($dimension > 2)
                     @foreach($categories as $category)
-                    <form class="mt-2 mb-2" action="#" id="dim-form">
-                        <label for="check-{{ $category->id }}" class="larg-check text-white mb-2 font-normal d-table w-100">
-                            <span class="d-table-cell  align-middle fs-22">{{ $category->name }}</span>
-                            <span class="d-table-cell align-middle w-20px">
-                                <input class="d-none" type="checkbox" id="check-{{ $category->id }}">
-                                <span class="entypo-check d-flex justify-content-center align-items-center"></span>
+                        @if(count($category->children) > 0)
+                        <form class="mt-2 mb-2" action="#" id="dim-form">
+                            <label for="check-{{ $category->id }}" class="larg-check text-white mb-2 font-normal d-table w-100">
+                                <span class="d-table-cell  align-middle fs-22">{{ $category->name }}</span>
+                                <span class="d-table-cell align-middle w-20px">
+                                    <input class="d-none" type="checkbox" id="check-{{ $category->id }}">
+                                    <span class="entypo-check d-flex justify-content-center align-items-center"></span>
+                                </span>
+                            </label>
+                            @foreach($category->children as $child)
+                            <label for="check-{{ $child->id }}" class="text-white mb-2 font-normal w-100 d-block">
+                            <span class="d-flex justify-content-between align-items-center w-100 fs-16">
+                                {{ $child->name }}
+                                <input type="checkbox" id="check-{{ $child->id }}">
+                                <span class="entypo-check d-flex align-items-center justify-content-center"></span>
                             </span>
-                        </label>
-                        @foreach($category->children as $child)
-                        <label for="check-{{ $child->id }}" class="text-white mb-2 font-normal w-100 d-block">
-                        <span class="d-flex justify-content-between align-items-center w-100 fs-16">
-                            {{ $child->name }}
-                            <input type="checkbox" id="check-{{ $child->id }}">
-                            <span class="entypo-check d-flex align-items-center justify-content-center"></span>
-                        </span>
-                            @foreach($child->children as $grandChild)
-                                <span class="d-block fs-12 pl-3">{{ $grandChild->name }}</span>
+                                @foreach($child->children as $grandChild)
+                                    <span class="d-block fs-12 pl-3">{{ $grandChild->name }}</span>
+                                @endforeach
+                            </label>
                             @endforeach
-                        </label>
-                        @endforeach
-                    </form>
+                        </form>
+                        @endif
                     @endforeach
                 @endif
             </div>
@@ -53,9 +55,9 @@
                     </div>
                     <div class="col-md-6">
                         <h4 class="text-white text-center  pb-4">Välj branch och tjäst</h4>
-                        <div class="row first-list m-height">
+                        <div class="row first-list m-height category-div">
                             @foreach($categories as $category)
-                                <div class="col-md-3 my-col col-sm-6 w-50 pointer main-category">
+                                <div class="col-md-3 my-col col-sm-6 w-50 pointer main-category" data-child="{{count($category->children) > 0}}">
                                     <div  class="bg-white trans pt-3 pb-3">
                                         @if(count($category->children) > 0 && $dimension < 3)
                                             <a href="{{ route('mainView',['id'=>$category->id]) }}">
@@ -100,19 +102,19 @@
             <div class="col-xl-5 col-md-6 pt-5">
                 <h4 class="text-black mb-3">Avstånd</h4>
                 <ul class="list-unstyled d-flex align-items-center justify-content-between flex-wrap list text-gray">
-                    <li class="p-2 trans">0-10km</li>
-                    <li class="p-2 trans">10-50km</li>
-                    <li class="p-2 trans">50-100km</li>
-                    <li class="p-2 trans">100+km</li>
+                    <li class="p-2 trans loc" data-loc="0">0-10km</li>
+                    <li class="p-2 trans loc" data-loc="10">10-50km</li>
+                    <li class="p-2 trans loc" data-loc="50">50-100km</li>
+                    <li class="p-2 trans loc" data-loc="100">100+km</li>
                 </ul>
             </div>
             <div class="col-xl-5 col-md-6 pt-5">
                 <h4 class="text-black mb-3">Pris</h4>
                 <ul class="list-unstyled d-flex align-items-center justify-content-between flex-wrap list text-gray">
-                    <li class="p-2 trans">0-200kr</li>
-                    <li class="p-2 trans">200-400kr</li>
-                    <li class="p-2 trans">400-600km</li>
-                    <li class="p-2 trans">600+km</li>
+                    <li class="p-2 trans price-search" data-price="0">0-200kr</li>
+                    <li class="p-2 trans price-search" data-price="200">200-400kr</li>
+                    <li class="p-2 trans price-search" data-price="400">400-600kr</li>
+                    <li class="p-2 trans price-search" data-price="600">600+kr</li>
                 </ul>
             </div>
         </div>
@@ -137,108 +139,31 @@
                     <th>Länkar</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td class="pl-0">
-                        <img src="images/home/logo-1.png" alt="logo">
-                    </td>
-                    <td>
-                        <ul class="font-normal list-unstyled font-bold">
-                            <li>Malare</li>
-                            <li>Elektriker</li>
-                            <li>Snickare</li>
-                            <li>Rormokare</li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul class=" font-normal list-unstyled font-bold">
-                            <li>105 kr/tim</li>
-                            <li>199 kr/tim</li>
-                            <li>99 kr/tim</li>
-                            <li>199kr/tim</li>
-                        </ul>
-                    </td>
-                    <td>
-                        <3km
-                    </td>
-                    <td>
-                        <ul class="list-unstyled chat-block">
-                            <li class="d-flex align-items-center justify-content-start mb-2">
-                                <img src="images/home/Chat%20Bubble_100px.png" alt="Chat">
-                                <span class="pl-2">103</span>
-                            </li>
-                            <li class="d-flex align-items-center justify-content-start mb-2">
-                                <img src="images/home/Star_100px.png" alt="Star">
-                                <span class="pl-2">4.7</span>
-                            </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul class="list-unstyled">
-                            <li class="mb-3">
-                                <a class="d-flex align-items-center justify-content-left text-orange" href="#">
-                                    <img src="images/home/mobile.png" alt="imac">
-                                    <span class="ml-2">Visa foretag</span>
-                                </a>
-                            </li>
-                            <li class="mb-3">
-                                <a class="d-flex align-items-center justify-content-left text-orange" href="#">
-                                    <img src="images/home/desktop.png" alt="imac">
-                                    <span class="ml-2">Webbplats</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="pl-0">
-                        <img src="images/home/logo-3.png" alt="logo">
-                    </td>
-                    <td>
-                        <ul class="font-normal list-unstyled font-bold">
-                            <li>Malare</li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul class="font-normal list-unstyled font-bold">
-                            <li>121 kr/tim</li>
-                        </ul>
-                    </td>
-                    <td>
-                        <5km
-                    </td>
-                    <td>
-                        <ul class="font-normallist-unstyled chat-block">
-                            <li class="d-flex align-items-center justify-content-start mb-2">
-                                <img src="images/home/Chat%20Bubble_100px.png" alt="Chat">
-                                <span class="pl-2">35</span>
-                            </li>
-                            <li class="d-flex align-items-center justify-content-start mb-2">
-                                <img src="images/home/Star_100px.png" alt="Star">
-                                <span class="pl-2">3.9</span>
-                            </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul class="list-unstyled">
-                            <li class="mb-3">
-                                <a class="d-flex align-items-center justify-content-left text-orange" href="#">
-                                    <img src="images/home/mobile.png" alt="imac">
-                                    <span class="ml-2">Visa foretag</span>
-                                </a>
-                            </li>
-                            <li class="mb-3">
-                                <a class="d-flex align-items-center justify-content-left text-orange" href="#">
-                                    <img src="images/home/desktop.png" alt="imac">
-                                    <span class="ml-2">Webbplats</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
+                <tbody id="searchResults">
                 </tbody>
             </table>
         </div>
     </div>
 </main>
+
+{{--map modal--}}
+
+<div id="mapModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                {{--<h4 class="modal-title">Modal Header</h4>--}}
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="map"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="setLocation" disabled>Set Your Location</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

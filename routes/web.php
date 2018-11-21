@@ -12,12 +12,24 @@
 */
 
 Route::get('/',                     ['uses'=>'IndexController@index',                   'as'=>'mainView']);
-
 Route::get('/login',                ['uses'=>'AuthController@loginView',                'as'=>'loginView']);
 Route::post('/login',               ['uses'=>'AuthController@login',                    'as'=>'login']);
 Route::get('/register',             ['uses'=>'AuthController@registerView',             'as'=>'registerView']);
 Route::post('/register',            ['uses'=>'AuthController@register',                 'as'=>'register']);
-Route::get('/logout/{role}',        ['uses'=>'AuthController@logout',                   'as'=>'logout']);
+Route::get('/logout',               ['uses'=>'AuthController@logout',                   'as'=>'logout']);
+Route::post('/map',                 ['uses'=>'MapsController@show',                     'as'=>'showMap']);
+Route::post('/setNewCords',         ['uses'=>'MapsController@setNewCords',              'as'=>'setNewCords']);
+Route::post('/location',            ['uses'=>'MapsController@location',                 'as'=>'location']);
+Route::post('/price-search',        ['uses'=>'IndexController@price_search',             'as'=>'price-search']);
+
+
+
+
+Route::get('/test_distance/{meter}', 'MapsController@getDistance');
+
+
+Route::get('/company/{slug}',       ['uses'=>'CompanyController@companyDetails',       'as'=>'companyDetails']);
+
 
 Route::group(['prefix'=>'client'],function (){
     Route::get('/login',            ['uses'=>'AuthController@clientLoginView',          'as'=>'clientLoginView']);
@@ -37,11 +49,12 @@ Route::group(['prefix'=>'client'],function (){
 Route::group(['middleware'=>'auth'],function (){
     Route::get('/edit',                ['uses'=>'AuthController@editView',                'as'=>'editView']);
     Route::post('/edit',               ['uses'=>'AuthController@editProfile',             'as'=>'editProfile']);
-    Route::get('/company',             ['uses'=>'CompanyController@companyDetails',       'as'=>'companyDetails']);
     Route::post('/comment',            ['uses'=>'CompanyController@addComments',          'as'=>'addComments']);
     Route::get('/admin',               ['middleware'=>'IsAdmin','uses'=>'AdminController@adminView',                'as'=>'adminView']);
     Route::get('/client_edit',         ['middleware'=>'IsAdmin','uses'=>'AdminController@client_edit',              'as'=>'client_edit']);
     Route::post('/client_edit',        ['middleware'=>'IsAdmin','uses'=>'AdminController@edit',                     'as'=>'edit']);
+    Route::get('/add_client',          ['middleware'=>'IsAdmin','uses'=>'AdminController@add_client_view',          'as'=>'add_client_view']);
+    Route::post('/add_client',         ['middleware'=>'IsAdmin','uses'=>'AdminController@add_client',               'as'=>'add_client']);
 
 });
 

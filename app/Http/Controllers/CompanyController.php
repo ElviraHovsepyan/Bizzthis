@@ -11,35 +11,39 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
-    public function companyDetails(){
-        $company = Company::with('users')->first();
-        $company_id = $company->id;
-        $rating = $this->getCompanyRating($company_id);
-        $reviews = Review::with('users')->where('company_id',$company_id)->orderBy('id', 'desc')->get();
-        $user_id = Auth::user()->id;
-        $insta = Instagram::where('user_id',$user_id)->first();
-        if($insta){
-            $token = $insta->token;
-            $instagram_client = new InstagramApi($token);
-            $user = $instagram_client->getUser();
-            $posts = $instagram_client->getPosts();
-        } else {
-            $posts = false;
+    public function companyDetails($slug){
+        $company = Company::with('users')->where('slug', $slug)->first();
+        if($company){
+            $company_id = $company->id;
+            $reviews = Review::with('users')->where('company_id',$company_id)->orderBy('id', 'desc')->get();
+            $user_id = $company['users']->id;
+            $insta = Instagram::where('user_id',$user_id)->first();
+            if($insta){
+                $token = $insta->token;
+                $instagram_client = new InstagramApi($token);
+                $user = $instagram_client->getUser();
+                $posts = $instagram_client->getPosts();
+            } else {
+                $posts = false;
+            }
+            return view('company_page',['company'=>$company,'reviews'=>$reviews,'page'=>'company','posts'=>$posts]);
         }
-        return view('company_page',['company'=>$company,'reviews'=>$reviews,'rating'=>$rating,'page'=>'company','posts'=>$posts]);
+        else{
+            return('Company not found');
+        }
     }
 
     public function addComments(Request $request){
         $text = trim($request->text);
         if(empty($text) || strlen($text) < 2){
-            return redirect()->route('companyDetails');
+            return back();
         }
         $data = $request->all();
         Review::saveComment($data);
-        return redirect()->route('companyDetails');
+        return back();
     }
 
-    public function getCompanyRating($id){
+    public static function getCompanyRating($id){
         $rates = Review::where('company_id',$id)->get();
         $count = count($rates);
         if($count < 0){
@@ -51,7 +55,9 @@ class CompanyController extends Controller
             $fullRate += $rate->company_rating;
         }
         $realRate = round($fullRate/$count,2);
-        return $realRate;
+        $company = Company::where('id',$id)->first();
+        $company->rating = $realRate;
+        $company->save();
     }
 
     public function getServiceRating($id){
@@ -67,5 +73,13 @@ class CompanyController extends Controller
         }
         $realRate = round($fullRate/$count);
         return $realRate;
+    }
+
+    public static function getReviewsCount($id){
+        $reviews = Review::where('company_id',$id)->get();
+        $count = count($reviews);
+        $company = Company::find($id);
+        $company->rev_count = $count;
+        $company->save();
     }
 }

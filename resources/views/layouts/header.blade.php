@@ -11,13 +11,13 @@
                 <a href="#">Kontakt</a>
                 @endif
                 <div class="d-flex align-items-center w-sm-100">
-                    <a class="d-flex align-items-center location-block" href="#">
-                        <img class="location-img trans" src="images/home/Tesla%20Supercharger%20Pin_100px.png" alt="Tesla%20Supercharger%20Pin">
+                    <button class="d-flex align-items-center location-block" data-toggle="modal" data-target="#mapModal" id="modalButton">
+                        <img class="location-img trans" src="/images/home/Tesla%20Supercharger%20Pin_100px.png" alt="Tesla%20Supercharger%20Pin">
                         <span class="ml-2">
                             <span class="font-normal d-inline-block w-100 fs-12"> Söker tjänster</span>
                             <span class="font-bold d-inline-block w-100 fs-18"> Nära dig</span>
                         </span>
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="col-xl-5 search-block">
@@ -63,7 +63,7 @@
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item fs-18 font-normal" href="{{ route('editView') }}">Edit account</a>
                                     <a class="dropdown-item fs-18 font-normal" href="#">Link 2</a>
-                                    <a class="dropdown-item fs-18 font-normal" href="{{ route('logout','user') }}">Log Out</a>
+                                    <a class="dropdown-item fs-18 font-normal" href="{{ route('logout') }}">Log Out</a>
                                 </div>
                             </div>
                         </li>
@@ -80,7 +80,7 @@
                             <a class="fs-18 text-blue" href="{{ route('loginView') }}">Logga in</a>
                         </li>
                         <li>
-                            <a class="fs-18 btn btn-blue text-white no-shadow d-flex align-items-center pl-3 pr-3" href="{{ route('registerView') }}">Skapa konto</a>
+                            <a class="fs-18 btn btn-blue text-white no-shadow d-flex align-items-center pl-3 pr-3" href="{{ route('clientLoginView') }}">Skapa konto</a>
                         </li>
                     </ul>
                 </div>

@@ -47,7 +47,7 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item fs-18 font-normal" href="#">Link 1</a>
                             <a class="dropdown-item fs-18 font-normal" href="#">Link 2</a>
-                            <a class="dropdown-item fs-18 font-normal" href="{{ route('logout','client') }}">Log Out</a>
+                            <a class="dropdown-item fs-18 font-normal" href="{{ route('logout') }}">Log Out</a>
                         </div>
                     </div>
                 </li>
@@ -77,7 +77,7 @@
                 </a>
             </li>
             <li class="mb-3 insights">
-                <a href="#" class="trans d-flex justify-content-start align-items-center position-relative text-white">
+                <a href="{{ route('add_client_view') }}" class="trans d-flex justify-content-start align-items-center position-relative text-white">
                     <span class="menu-icon fa fa-user-plus fs-26"></span>
                     <span class="text ml-2 font-normal text-uppercase">Add new client
                          <span class="entypo-right-open-big fs-18"></span>
@@ -124,7 +124,7 @@
 <script src="{{asset('js/popper.min.js')}}"></script>
 <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
-<script src="{{asset('js/jquery.form-validator.min.js')}}"></script>
+{{--<script src="{{asset('js/jquery.form-validator.min.js')}}"></script>--}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 <script src="{{asset('js/client.js')}}"></script>
 

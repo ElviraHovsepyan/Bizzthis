@@ -161,6 +161,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class,
+        Alexpechkarev\GoogleGeocoder\GoogleGeocoderServiceProvider::class,
         /*
          * Package Service Providers...
          */

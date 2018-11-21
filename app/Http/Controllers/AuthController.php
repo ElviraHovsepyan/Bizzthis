@@ -43,7 +43,7 @@ class AuthController extends Controller
         $validate = User::validate($data);
         if($validate !== true) return $validate;
         else {
-            User::register($data);
+            User::register($data, $request);
             if($request->role == 'user') return redirect()->route('mainView');
             else return redirect()->route('dashboardView');
         }
@@ -53,10 +53,9 @@ class AuthController extends Controller
         return view('client.login');
     }
 
-    public function logout($role){
+    public function logout(){
         Auth::logout();
-        if($role == 'client')return redirect()->route('clientLoginView');
-        else return redirect()->route('mainView');
+        return redirect()->route('mainView');
     }
 
     public function editView(){

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,5 +36,27 @@ class GoogleController extends Controller
         }
         Auth::loginUsingId($user_id);
         return redirect()->route('mainView');
+    }
+
+    public static function getGeocode($param){
+        $response = \Geocoder::geocode('json', $param);
+        return json_decode($response, true);
+    }
+
+    public static function setGeocode($company)
+    {
+        $street = $company->address;
+        $country = 'Armenia';
+        $address = $street . ' ' . $country;
+        $param = ["address" => $address];
+        $geocode = self::getGeocode($param);
+        if($geocode['status'] !== "ZERO_RESULTS"){
+            $geocode = $geocode['results'][0]['geometry']['location'];
+            $company->lat = $geocode['lat'];
+            $company->lng = $geocode['lng'];
+            $company->save();
+            return $company;
+        }
+        else return false;
     }
 }

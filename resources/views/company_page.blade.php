@@ -5,7 +5,7 @@
             <div class="container-fluid wrapper">
                 <div class="row">
                     <div class="col-lg-1 col-md-2 mb-4">
-                        <a class="prev-page d-flex align-items-center justify-content-center mr-2" href="#">
+                        <a class="prev-page d-flex align-items-center justify-content-center mr-2" href="/">
                         <span class="back d-flex align-items-center justify-content-center mr-2">
                               <span class="entypo-left-open-big position-relative fs-26 trans"></span>
                         </span>
@@ -17,7 +17,7 @@
                             <div class="col-sm-2 mb-4">
                                 <div class="d-flex align-items-center justify-content-center mt-85">
                                     <img class="star-img" src="../images/home/Star_100px.png" alt="star">
-                                    <p class="mb-0 ml-2">{{ $rating }}<span class="text-light-gray"></span></p>
+                                    <p class="mb-0 ml-2">{{ $company->rating }}<span class="text-light-gray"></span></p>
                                 </div>
                             </div>
                             <div class="col-sm-10">
@@ -118,7 +118,7 @@
                             <li class="d-flex align-items-center mt-4">
                             <ul class="list-unstyled profile-info pr-2">
                                 <li class="mb-2 pr-img">
-                                    <img src="images/user_images/{{ $review->users['image'] }}" alt="profile img">
+                                    <img src="/images/user_images/{{ $review->users['image'] }}" alt="profile img">
                                 </li>
                                 <li class="text-bold">{{ $review->users['name'] }}</li>
                                 <li class="text-light-gray text-bold">{{ $review->created_at }}</li>
@@ -152,16 +152,16 @@
                         </li>
                         @endforeach
                     </ul>
-                    @if(Auth::user())
+
                     <div class="bg-blue br-6 p-4 mt-md-4">
                         <form action="{{ route('addComments') }}" method="post">
                             @csrf
                             <div class="form-group">
-                                <textarea name="text" class="form-control border-0 br-6 no-resize p-3" placeholder="Skriv dinresension har."></textarea>
+                                <textarea name="text" class="form-control border-0 br-6 no-resize p-3" placeholder="Skriv dinresension har."  {{Auth::guest() ? 'disabled' : ''}}></textarea>
                             </div>
                             <input type="hidden" name="company_rating" id="company_rating">
                             <input type="hidden" name="service_rating" id="service_rating">
-                            <input type="hidden" name="company_id" id="company_id" value="2">
+                            <input type="hidden" name="company_id" id="company_id" value="{{ $company->id }}">
 
                             <ul class="list-unstyled d-flex align-items-center justify-content-between flex-wrap">
                                 <li class="mt-2 mb-2">
@@ -189,13 +189,18 @@
                                     </fieldset>
                                     <a href="#" class="info d-flex align-items-center justify-content-center entypo-info-circled"></a>
                                 </li>
+                                @if(Auth::user())
                                 <li class="mt-2 mb-2">
                                     <button type="submit" class="btn btn-orange br-6 no-shadow text-white font-bold">Recensera!</button>
                                 </li>
+                                @else
+                                    <li class="mt-2 mb-2">
+                                        <a href="/login" class="btn btn-orange br-6 no-shadow text-white font-bold log-in-to-comment">Log in to add comment</a>
+                                    </li>
+                                @endif
                             </ul>
                         </form>
                     </div>
-                    @endif
                 </div>
                 <div class="tab-pane fade" id="portfolio" role="tabpanel">
                     <div class="form-row mt-5">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Company;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -27,5 +28,27 @@ class IndexController extends Controller
 
     public function company(){
         return view('company');
+    }
+
+    public function price_search(Request $request){
+        $companies = Company::with('users.prices.categories')->get();
+        $start = $request->start;
+        $end = $request->end;
+        $arr = [];
+        foreach ($companies as $company){
+            $prices = $company->users->prices;
+            foreach ($prices as $price){
+                if($start == 600 && $price->price > $start){
+                    $arr[] = $company;
+                    break;
+                } else {
+                    if($price->price > $start && $price->price < $end){
+                        $arr[] = $company;
+                        break;
+                    }
+                }
+            }
+        }
+        return $arr;
     }
 }

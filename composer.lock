@@ -4,8 +4,53 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a96fee7e9cdb0e3ad379de3c740c57fd",
+    "content-hash": "209f83975100c21b8f924d5af4119a83",
     "packages": [
+        {
+            "name": "alexpechkarev/google-geocoder",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alexpechkarev/google-geocoder.git",
+                "reference": "65c37b25058ca7b0465840d28601aa344b700fe0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alexpechkarev/google-geocoder/zipball/65c37b25058ca7b0465840d28601aa344b700fe0",
+                "reference": "65c37b25058ca7b0465840d28601aa344b700fe0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Alexpechkarev\\GoogleGeocoder": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Pechkarev",
+                    "email": "alexpechkarev@gmail.com"
+                }
+            ],
+            "description": "Simple Google Geocoding API v3 wrapper for Laravel 4/5, Slim3 etc",
+            "homepage": "https://github.com/alexpechkarev/google-geocoder",
+            "keywords": [
+                "geocoding",
+                "google geocoding api",
+                "laravel"
+            ],
+            "time": "2017-09-27T12:53:44+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",

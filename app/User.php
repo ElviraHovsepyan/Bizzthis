@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Http\Controllers\MapsController;
 use Carbon\Carbon;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class User extends Authenticatable
@@ -70,6 +73,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Review','user_id');
     }
 
+    public function prices(){
+        return $this->hasMany('App\Price','user_id');
+    }
+
     public static function validate($data){
         if($data['role']=='user') $rules = self::$rulesUser;
         else $rules = self::$rulesClient;
@@ -81,7 +88,7 @@ class User extends Authenticatable
         return true;
     }
 
-    public static function register($data){
+    public static function register($data, Request $request){
         $user = new User();
         $user->name = $data['name'];
         $user->email = $data['email'];
@@ -99,8 +106,16 @@ class User extends Authenticatable
             $user->role_id = 3;
         }
         $user->save();
+        self::getLocation($user,$request);
         $user_id = $user->id;
         Auth::loginUsingId($user_id);
+    }
+
+    public static function getLocation($user,$request){
+        $latlng = MapsController::setGeocode($request);
+        $user->lat = $latlng['lat'];
+        $user->lng = $latlng['lng'];
+        $user->save();
     }
 
     public static function login($data){

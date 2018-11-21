@@ -188,6 +188,8 @@ header .location-block:hover .location-img{
 header .location-block{
     max-width: 125px;
     line-height: 1;
+    border: none;
+    background: none;
 }
 header .search-block  button.all-categories:active,
 header  .search-block button.all-categories:focus,

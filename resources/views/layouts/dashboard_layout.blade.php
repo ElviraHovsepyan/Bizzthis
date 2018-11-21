@@ -47,7 +47,7 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item fs-18 font-normal" href="#">Link 1</a>
                             <a class="dropdown-item fs-18 font-normal" href="#">Link 2</a>
-                            <a class="dropdown-item fs-18 font-normal" href="{{ route('logout','client') }}">Log Out</a>
+                            <a class="dropdown-item fs-18 font-normal" href="{{ route('logout') }}">Log Out</a>
                         </div>
                     </div>
                 </li>

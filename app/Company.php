@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\GoogleController;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -31,7 +32,14 @@ class Company extends Model
         $user_details->last_name = $data['last_name'];
         $user_details->post_code = $data['post_code'];
         $user_details->telephone = $data['telephone'];
+        if(!strpos($data['company_name'],' ')){
+            $slug = '_'.$data['company_name'];
+        } else {
+            $slug = str_replace(' ', '_',$data['company_name']);
+        }
+        $user_details->slug = $slug;
         $user_details->save();
+        $user_details = GoogleController::setGeocode($user_details);
         return $user_details->id;
     }
 

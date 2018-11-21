@@ -176,6 +176,21 @@ input[type=range]:focus::-ms-fill-upper {
     width: 100%;
     max-width: 300px;
 }
+.border-red{
+    border: 1px solid #b94a48 !important;
+}
+
+.dim-active{
+    background-color: #f2994a!important;
+}
+#map{
+    min-height: 700px;
+    min-width: 700px;
+}
+.log-in-to-comment{
+    min-height: 100%;
+    padding: 10px;
+}
 
 @media screen and (min-width: 1200px){
     .first-list .my-col{

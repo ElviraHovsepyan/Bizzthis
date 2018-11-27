@@ -1,4 +1,3 @@
-
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -17,7 +16,6 @@ $('#second_fieldset label').on('click', function(){
    $('#service_rating').val(star2);
 });
 
-
 $(".click-filter").click(function () {
     $("main").toggleClass("open-filter");
 });
@@ -25,27 +23,11 @@ $(".close-filter").click(function () {
     $("main").removeClass("open-filter");
 });
 
-$('.main-category').click(function () {
-    if($('#dim-form').length > 0){
-        $("main").toggleClass("open-filter");
-    }
-});
-
-$('.main-category').click(function () {
-    if(!$(this).data('child')){
-        $('.bg-white').removeClass('dim-active');
-        $(this).find('.bg-white').addClass('dim-active');
-    }
-});
-
-
-
 /////////////////////////// maps
-
 
 let map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.1811, lng: 44.5136},
-    zoom: 15
+    zoom: 10
 });
 
 let marker = new google.maps.Marker({
@@ -55,8 +37,6 @@ let marker = new google.maps.Marker({
     draggable: true,
     animation: google.maps.Animation.DROP,
 });
-
-
 
 function initMap(lat, lng, companies) {
     let uluru = {lat: lat, lng: lng};
@@ -80,7 +60,6 @@ function initMap(lat, lng, companies) {
         });
     }
 }
-
 
 marker.addListener('dragend', showCords);
 let newLat;
@@ -127,49 +106,215 @@ $('#modalButton').click(function () {
         let lat = parseFloat(coord['lat']);
         let lng = parseFloat(coord['lng']);
         let companies = coord['companies'];
-        if(coord['user'] === 'guest') {
+        if(coord['user'] == 'guest') {
             let check = JSON.parse(localStorage.getItem('coord'));
-            if(!check){
-                let arr={};
-                arr['lat'] = coord['lat'];
-                arr['lng'] = coord['lng'];
-                localStorage.setItem('coord',JSON.stringify(arr));
-            } else {
-                lat = parseFloat(check['lat']);
-                lng = parseFloat(check['lng']);
-            }
+            lat = parseFloat(check['lat']);
+            lng = parseFloat(check['lng']);
         }
         initMap(lat, lng, companies);
     });
 });
 
+////////////////////////////  filter: location, prices
+
+let take = 5;
+let offset = 0;
+let sort = 'asc';
+
+$(document).ready(function () {
+    let check = JSON.parse(localStorage.getItem('coord'));
+    if(!check){
+        let arr = {};
+        let user = 'guest';
+        $.ajax({
+            url: '/coord',
+            type: 'post',
+            data: {user:user}
+        }).done(function (response) {
+            let coord = JSON.parse(response);
+            arr['lat'] = coord['lat'];
+            arr['lng'] = coord['lng'];
+            localStorage.setItem('coord',JSON.stringify(arr));
+        });
+    }
+    localStorage.removeItem('filter');
+});
+
 
 $('.loc').click(function () {
-    let coord = JSON.parse(localStorage.getItem('coord'));
-    let start = $(this).data('loc');
-    let end;
-    switch (start){
-        case 0:
-            end = 10;
-            break;
-        case 10:
-            end = 50;
-            break;
-        case 50:
-            end = 100;
-            break;
-        case 100:
-            end = null;
+    take = 5;
+    offset = 0;
+    let arr;
+    if($(this).hasClass('active-button-filter')){
+        $('.loc').removeClass('active-button-filter');
+        arr = JSON.parse(localStorage.getItem('filter'));
+        delete arr['loc'];
+        localStorage.setItem('filter',JSON.stringify(arr));
+    } else {
+        $('.loc').removeClass('active-button-filter');
+        $(this).addClass('active-button-filter');
+        let coord = JSON.parse(localStorage.getItem('coord'));
+        let start = $(this).data('loc');
+        let end;
+        switch (start){
+            case 0:
+                end = 10;
+                break;
+            case 10:
+                end = 50;
+                break;
+            case 50:
+                end = 100;
+                break;
+            case 100:
+                end = null;
+        }
+        arr = JSON.parse(localStorage.getItem('filter'));
+        if(arr){
+            arr['loc'] = {start:start,end:end,coord:coord};
+        } else {
+            arr = {};
+            arr['loc'] = {start:start,end:end,coord:coord};
+        }
+        localStorage.setItem('filter',JSON.stringify(arr));
     }
+    sendAjax(arr);
+});
+
+$('.price-search').click(function () {
+    take = 5;
+    offset = 0;
+    let arr;
+    if($(this).hasClass('active-button-filter')){
+        $('.price-search').removeClass('active-button-filter');
+        arr = JSON.parse(localStorage.getItem('filter'));
+        delete arr['price'];
+        localStorage.setItem('filter',JSON.stringify(arr));
+    } else {
+        $('.price-search').removeClass('active-button-filter');
+        $(this).addClass('active-button-filter');
+        let start = $(this).data('price');
+        let end;
+        switch (start){
+            case 0:
+                end = 200;
+                break;
+            case 200:
+                end = 400;
+                break;
+            case 400:
+                end = 600;
+                break;
+            case 600:
+                end = null;
+        }
+        arr = JSON.parse(localStorage.getItem('filter'));
+        if(arr){
+            arr['price'] = {start:start,end:end};
+        } else {
+            arr = {};
+            arr['price'] = {start:start,end:end};
+        }
+        localStorage.setItem('filter',JSON.stringify(arr));
+    }
+    sendAjax(arr);
+});
+
+$('.main-category').click(function () {
+    take = 5;
+    offset = 0;
+    let arr;
+    if($('.dim-form').length > 0){
+        if($(this).data('child')) $("main").addClass("open-filter");
+        else $("main").removeClass("open-filter");
+        if($(this).find('.dim-active').length > 0) $("main").removeClass("open-filter");
+    }
+    if($(this).find('.bg-white').hasClass('dim-active')){
+        $('.bg-white').removeClass('dim-active');
+        arr = JSON.parse(localStorage.getItem('filter'));
+        delete arr['id'];
+        localStorage.setItem('filter',JSON.stringify(arr));
+    } else {
+        $('.bg-white').removeClass('dim-active');
+        $(this).find('.bg-white').addClass('dim-active');
+        let category_id = [];
+        category_id.push($(this).find('.id-span').data('id'));
+        arr = JSON.parse(localStorage.getItem('filter'));
+        if(arr){
+            arr['id'] = category_id;
+        } else {
+            arr = {};
+            arr['id'] = category_id;
+        }
+        localStorage.setItem('filter',JSON.stringify(arr));
+    }
+    sendAjax(arr);
+});
+
+$('.filter-first-checkbox').on('change',function () {
+    if($(this).is(':checked')){
+        $(this).parent().parent().parent().find('.filter-checkbox').prop('checked',true);
+    } else {
+        $(this).parent().parent().parent().find('.filter-checkbox').prop('checked',false);
+    }
+});
+
+$('.filter-checkbox, .filter-first-checkbox').on('change',function () {
+    let arr;
+    let checkboxes = [];
+    $('.filter-checkbox').each(function () {
+        if($(this).is(':checked')){
+            checkboxes.push($(this).data('id'));
+            if($(this).data('child') > 0){
+                $(this).parent().parent().find('.grandChild').each(function () {
+                    checkboxes.push($(this).data('id'));
+                });
+            }
+        }
+    });
+    arr = JSON.parse(localStorage.getItem('filter'));
+    if(arr){
+        arr['id'] = checkboxes;
+    } else {
+        arr = {};
+        arr['id'] = checkboxes;
+    }
+    localStorage.setItem('filter',JSON.stringify(arr));
+    sendAjax(arr);
+});
+
+$('.sort-th').click(function () {
+    let arr = JSON.parse(localStorage.getItem('filter'));
+    if($(this).find('i').hasClass('fa-angle-down')){
+        $(this).find('i').removeClass('fa-angle-down');
+        $(this).find('i').addClass('fa-angle-up');
+        sort = 'desc';
+    } else {
+        $(this).find('i').removeClass('fa-angle-up');
+        $(this).find('i').addClass('fa-angle-down');
+        sort = 'asc';
+    }
+    sendAjax(arr);
+});
+
+function sendAjax(arr) {
+    let coord = JSON.parse(localStorage.getItem('coord'));
     $.ajax({
-        url: '/location',
+        url: '/filter',
         type: 'post',
-        data: {start:start,end:end,coord:coord}
+        data: {arr:arr,coord:coord,sort:sort,take:take,offset:offset}
     }).done(function (response) {
-        let companies = response;
-        console.log(companies);
+        let companies = JSON.parse(response);
         appendCompanies(companies);
     });
+    $('#see_more').show();
+}
+
+$('#see_more').click(function () {
+    take += 5;
+    offset += 5;
+    let arr = JSON.parse(localStorage.getItem('filter'));
+    sendAjax(arr);
 });
 
 function appendCompanies(companies) {
@@ -178,7 +323,7 @@ function appendCompanies(companies) {
         for (let i = 0; i < companies.length; i++){
             $('#searchResults').append(`<tr>
                     <td class="pl-0">
-                        <img src="/images/company_images/${companies[i]['logo']}" alt="logo">
+                        <a href="/company/${companies[i]['slug']}"><img src="/images/company_images/${companies[i]['logo']}" alt="logo"></a>
                     </td>
                     <td>
                         <ul class="font-normal list-unstyled font-bold">
@@ -191,12 +336,12 @@ function appendCompanies(companies) {
                         </ul>
                     </td>
                     <td>
-                        <3km
+                        < ${companies[i]['distance']} km
                     </td>
                     <td>
                         <ul class="list-unstyled chat-block">
                             <li class="d-flex align-items-center justify-content-start mb-2">
-                                <img src="images/home/Chat%20Bubble_100px.png" alt="Chat">
+                                ${companies[i]['rev_count'] ? '<img src="images/home/Chat%20Bubble_100px.png" alt="Chat">' : ''}
                                 <span class="pl-2">${companies[i]['rev_count'] ? companies[i]['rev_count'] : ''}</span>
                             </li>
                             <li class="d-flex align-items-center justify-content-start mb-2">
@@ -222,7 +367,7 @@ function appendCompanies(companies) {
                         </ul>
                     </td>
                 </tr>
-        `);
+            `);
         }
     }
 }
@@ -243,30 +388,6 @@ function appendPrices(comp) {
     return arr2;
 }
 
-$('.price-search').click(function () {
-    let start = $(this).data('price');
-    let end;
-    switch (start){
-        case 0:
-            end = 200;
-            break;
-        case 200:
-            end = 400;
-            break;
-        case 400:
-            end = 600;
-            break;
-        case 600:
-            end = null;
-    }
-    $.ajax({
-        url: '/price-search',
-        type: 'post',
-        data: {start:start,end:end}
-    }).done(function (response) {
-        let companies = response;
-        appendCompanies(companies);
-    });
-});
+
 
 

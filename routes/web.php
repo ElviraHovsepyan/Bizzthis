@@ -19,13 +19,8 @@ Route::post('/register',            ['uses'=>'AuthController@register',         
 Route::get('/logout',               ['uses'=>'AuthController@logout',                   'as'=>'logout']);
 Route::post('/map',                 ['uses'=>'MapsController@show',                     'as'=>'showMap']);
 Route::post('/setNewCords',         ['uses'=>'MapsController@setNewCords',              'as'=>'setNewCords']);
-Route::post('/location',            ['uses'=>'MapsController@location',                 'as'=>'location']);
-Route::post('/price-search',        ['uses'=>'IndexController@price_search',             'as'=>'price-search']);
-
-
-
-
-Route::get('/test_distance/{meter}', 'MapsController@getDistance');
+Route::post('/filter',              ['uses'=>'IndexController@filter',                  'as'=>'filter']);
+Route::post('/coord',               ['uses'=>'MapsController@setCoordinatesInStorage',  'as'=>'set_coords']);
 
 
 Route::get('/company/{slug}',       ['uses'=>'CompanyController@companyDetails',       'as'=>'companyDetails']);

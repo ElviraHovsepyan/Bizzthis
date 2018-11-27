@@ -46,7 +46,7 @@ class GoogleController extends Controller
     public static function setGeocode($company)
     {
         $street = $company->address;
-        $country = 'Armenia';
+        $country = 'Sweden';
         $address = $street . ' ' . $country;
         $param = ["address" => $address];
         $geocode = self::getGeocode($param);

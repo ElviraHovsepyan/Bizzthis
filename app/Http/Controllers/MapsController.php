@@ -30,7 +30,8 @@ class MapsController extends Controller
 
     public static function setGeocode($req){
 //        $ip = $req->ip();
-        $ip = '82.199.214.130';
+//        $ip = '82.199.214.130';
+        $ip = '5.189.207.191';
         $client = new \GuzzleHttp\Client();
         try{
             $request = $client->request('GET', 'http://www.geoplugin.net/json.gp?ip='.$ip);
@@ -56,10 +57,9 @@ class MapsController extends Controller
             return 'guest';
         }
         return 'success';
-
     }
 
-    public function getDistance($start, $end, $coord){
+    public  static function getDistance($start, $end, $coord, $companies = false){
         if(Auth::user()){
             $latitudeFrom = Auth::user()->lat;
             $longitudeFrom = Auth::user()->lng;
@@ -67,25 +67,20 @@ class MapsController extends Controller
             $latitudeFrom = $coord['lat'];
             $longitudeFrom = $coord['lng'];
         }
-        return $this->checkDistance($latitudeFrom, $longitudeFrom, $start, $end);
+        return self::checkDistance($latitudeFrom, $longitudeFrom, $start, $end, $companies);
     }
 
-    public function checkDistance($lat, $lng, $start, $end){
-        $companies = Company::with('users.prices.categories')->get();
+    public static function checkDistance($lat, $lng, $start, $end, $companies = false){
+        if(!$companies){
+            $companies = Company::with('users.prices.categories')->get();
+        }
         $arr = [];
+        $start = $start * 1000;
+        $end = $end * 1000;
         foreach ($companies as $company){
             $latitudeTo = $company->lat;
             $longitudeTo = $company->lng;
-            $earthRadius = 6371000;
-            $latFrom = deg2rad($lat);
-            $lonFrom = deg2rad($lng);
-            $latTo = deg2rad($latitudeTo);
-            $lonTo = deg2rad($longitudeTo);
-            $latDelta = $latTo - $latFrom;
-            $lonDelta = $lonTo - $lonFrom;
-            $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
-                    cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
-            $distance = $angle * $earthRadius;
+            $distance = self::distanse($lat,$lng,$latitudeTo,$longitudeTo);
             if($start == 100 && $distance > $start){
                 $arr[] = $company;
             } else {
@@ -97,15 +92,27 @@ class MapsController extends Controller
         return $arr;
     }
 
-    public function location(Request $request){
-        $start = $request->start * 1000;
-        $end = $request->end * 1000;
-        $coord = $request->coord;
-        return $this->getDistance($start, $end, $coord);
+    public static function distanse($lat,$lng,$latitudeTo,$longitudeTo){
+        $earthRadius = 6371000;
+        $latFrom = deg2rad($lat);
+        $lonFrom = deg2rad($lng);
+        $latTo = deg2rad($latitudeTo);
+        $lonTo = deg2rad($longitudeTo);
+        $latDelta = $latTo - $latFrom;
+        $lonDelta = $lonTo - $lonFrom;
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
+                cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
+        $distance = $angle * $earthRadius;
+        return $distance;
+    }
+
+    public function setCoordinatesInStorage(Request $request){
+        if($request->user == 'guest'){
+            $latLng = self::setGeocode($request);
+            return json_encode($latLng);
+        }
     }
 }
-
-// todo change data in db
 
 
 

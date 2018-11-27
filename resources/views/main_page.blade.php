@@ -14,23 +14,23 @@
                 @if($dimension > 2)
                     @foreach($categories as $category)
                         @if(count($category->children) > 0)
-                        <form class="mt-2 mb-2" action="#" id="dim-form">
+                        <form class="mt-2 mb-2 dim-form" action="#">
                             <label for="check-{{ $category->id }}" class="larg-check text-white mb-2 font-normal d-table w-100">
                                 <span class="d-table-cell  align-middle fs-22">{{ $category->name }}</span>
-                                <span class="d-table-cell align-middle w-20px">
-                                    <input class="d-none" type="checkbox" id="check-{{ $category->id }}">
+                                <span class="d-table-cell align-middle w-20px id-span">
+                                    <input class="d-none filter-first-checkbox" type="checkbox" id="check-{{ $category->id }}">
                                     <span class="entypo-check d-flex justify-content-center align-items-center"></span>
                                 </span>
                             </label>
                             @foreach($category->children as $child)
-                            <label for="check-{{ $child->id }}" class="text-white mb-2 font-normal w-100 d-block">
-                            <span class="d-flex justify-content-between align-items-center w-100 fs-16">
+                            <label for="check-{{ $child->id }}" class="text-white mb-2 font-normal w-100 d-block label-check">
+                            <span class="d-flex justify-content-between align-items-center w-100 fs-16 id-span">
                                 {{ $child->name }}
-                                <input type="checkbox" id="check-{{ $child->id }}">
+                                <input class="filter-checkbox" type="checkbox" id="check-{{ $child->id }}" data-id="{{ $child->id }}" data-child="{{ count($child->children) }}">
                                 <span class="entypo-check d-flex align-items-center justify-content-center"></span>
                             </span>
                                 @foreach($child->children as $grandChild)
-                                    <span class="d-block fs-12 pl-3">{{ $grandChild->name }}</span>
+                                    <span class="d-block fs-12 pl-3 grandChild" data-id="{{ $grandChild->id }}">{{ $grandChild->name }}</span>
                                 @endforeach
                             </label>
                             @endforeach
@@ -65,7 +65,7 @@
                                                 <div class="d-flex align-items-center justify-content-center pl-2 pr-2 ">
                                                     <div  class="text-center">
                                                         <img src="/images/category_images/{{ $category->image }}" alt="Icon">
-                                                        <span class="font-normal d-block pl-4 pr-4">{{ $category->name }}</span>
+                                                        <span class="font-normal d-block pl-4 pr-4 id-span" data-id="{{ $category->id }}">{{ $category->name }}</span>
                                                     </div>
                                                 </div>
                                             </a>
@@ -98,7 +98,7 @@
 @endsection
 @section('content2')
     <div class="container">
-        <div class="row">
+        <div class="row filter-buttons">
             <div class="col-xl-5 col-md-6 pt-5">
                 <h4 class="text-black mb-3">Avstånd</h4>
                 <ul class="list-unstyled d-flex align-items-center justify-content-between flex-wrap list text-gray">
@@ -125,16 +125,7 @@
                     <th class="pl-0">Företag</th>
                     <th>Tjänst</th>
                     <th>Pris</th>
-                    <th>
-                        <div class="form-group mb-0 entypo-down-open position-relative">
-                            <select class="form-control border-0">
-                                <option value="audi" selected>Avstånd</option>
-                                <option value="text">text</option>
-                                <option value="text">text</option>
-                                <option value="text">text</option>
-                            </select>
-                        </div>
-                    </th>
+                    <th class="sort-th">Avstånd <i class="fa fa-fw fa-angle-down"></i></th>
                     <th>Omdömen</th>
                     <th>Länkar</th>
                 </tr>
@@ -142,6 +133,7 @@
                 <tbody id="searchResults">
                 </tbody>
             </table>
+            <button id="see_more" class="btn hidden">See more</button>
         </div>
     </div>
 </main>

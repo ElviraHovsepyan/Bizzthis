@@ -14,9 +14,9 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($clients as $client)
+        @foreach($clients as $i=>$client)
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">{{ $i+1 }}</th>
                 <td>{{ $client['users']->image }}</td>
                 <td>{{ $client['users']->name }}</td>
                 <td>{{ $client->last_name }}</td>

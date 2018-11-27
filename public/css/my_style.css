@@ -154,6 +154,12 @@ input[type=range]:focus::-ms-fill-upper {
     color: #fff;
     background: #2f3b65;
 }
+
+.active-button-filter{
+    background: #45b8f8;
+    color: #fff;
+}
+
 .modal-lg{
     min-width: 1280px;
 }
@@ -179,7 +185,6 @@ input[type=range]:focus::-ms-fill-upper {
 .border-red{
     border: 1px solid #b94a48 !important;
 }
-
 .dim-active{
     background-color: #f2994a!important;
 }
@@ -190,6 +195,12 @@ input[type=range]:focus::-ms-fill-upper {
 .log-in-to-comment{
     min-height: 100%;
     padding: 10px;
+}
+.filter-buttons li, .sort-th{
+    cursor: pointer !important;
+}
+#see_more{
+    float: right;
 }
 
 @media screen and (min-width: 1200px){

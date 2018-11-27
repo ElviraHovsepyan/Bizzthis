@@ -33,7 +33,7 @@ class Company extends Model
         $user_details->post_code = $data['post_code'];
         $user_details->telephone = $data['telephone'];
         if(!strpos($data['company_name'],' ')){
-            $slug = '_'.$data['company_name'];
+            $slug = $data['company_name'];
         } else {
             $slug = str_replace(' ', '_',$data['company_name']);
         }
@@ -68,7 +68,6 @@ class Company extends Model
         if(!empty($data['name'])) $company->users['name'] = $data['name'];
         if(!empty($data['email'])) $company->users['email'] = $data['email'];
         if(!empty($data['password'])) $company->users['password'] = Hash::make($data['password']);
-
         $company->push();
         return 'success';
     }

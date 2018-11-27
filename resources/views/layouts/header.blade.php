@@ -62,7 +62,9 @@
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item fs-18 font-normal" href="{{ route('editView') }}">Edit account</a>
-                                    <a class="dropdown-item fs-18 font-normal" href="#">Link 2</a>
+                                    @if(Auth::user()->role_id == 1)
+                                    <a class="dropdown-item fs-18 font-normal" href="{{ route('adminView') }}">Dashboard</a>
+                                    @endif
                                     <a class="dropdown-item fs-18 font-normal" href="{{ route('logout') }}">Log Out</a>
                                 </div>
                             </div>

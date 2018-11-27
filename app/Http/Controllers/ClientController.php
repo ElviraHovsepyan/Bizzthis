@@ -70,7 +70,8 @@ class ClientController extends Controller
             return 'false';
         } else {
             $obj = new Price();
-            $obj->user_id = Auth::user()->id;
+            if(!empty($request->user_id)) $obj->user_id = $request->user_id;
+            else $obj->user_id = Auth::user()->id;
             $obj->category_id = $id;
             $obj->price = $price;
             $obj->save();

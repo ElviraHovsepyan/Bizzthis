@@ -85,11 +85,11 @@
                 </a>
             </li>
             <li class="mb-3 prices">
-                <a  href="#" class="trans d-flex justify-content-start align-items-center position-relative text-white">
-                    <span class="menu-icon entypo-tag fs-26"></span>
-                    {{--<span class="text ml-2 font-normal text-uppercase">set your prices--}}
-                         {{--<span class="entypo-right-open-big fs-18"></span>--}}
-                    {{--</span>--}}
+                <a  href="{{ route('admin_prices') }}" class="trans d-flex justify-content-start align-items-center position-relative text-white">
+                    <span class="menu-icon fa fa-dollar fs-26"></span>
+                    <span class="text ml-2 font-normal text-uppercase">view / edit prices
+                         <span class="entypo-right-open-big fs-18"></span>
+                    </span>
                 </a>
             </li>
             <li class="mb-3 profile">
@@ -124,7 +124,7 @@
 <script src="{{asset('js/popper.min.js')}}"></script>
 <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
-{{--<script src="{{asset('js/jquery.form-validator.min.js')}}"></script>--}}
+<script src="{{asset('js/jquery.form-validator.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
 <script src="{{asset('js/client.js')}}"></script>
 

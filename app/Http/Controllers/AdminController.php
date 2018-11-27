@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\Price;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -105,5 +106,17 @@ class AdminController extends Controller
         $user->this_login = $date;
         $user->save();
         return redirect()->route('adminView');
+    }
+
+    public function prices(){
+        $companies = Company::with('users.prices.categories')->get();
+        return view('admin.admin_prices',['companies'=>$companies]);
+    }
+
+    public function edit_prices(Request $request){
+        $price = Price::find($request->price_id);
+        $price->price = $request->price_val;
+        $price->save();
+        return 'success';
     }
 }

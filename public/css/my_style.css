@@ -202,6 +202,12 @@ input[type=range]:focus::-ms-fill-upper {
 #see_more{
     float: right;
 }
+.edit_price_button{
+    width: 100px;
+}
+.category_name_p{
+    height: 28px;
+}
 
 @media screen and (min-width: 1200px){
     .first-list .my-col{

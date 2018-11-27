@@ -28,6 +28,9 @@ Route::get('/company/{slug}',       ['uses'=>'CompanyController@companyDetails',
 
 Route::group(['prefix'=>'client'],function (){
     Route::get('/login',            ['uses'=>'AuthController@clientLoginView',          'as'=>'clientLoginView']);
+    Route::post('/price_dim',       ['uses'=>'ClientController@price_dim',              'as'=>'price_dim']);
+    Route::post('/add_price',       ['uses'=>'ClientController@add_price',              'as'=>'add_price']);
+
     Route::group(['middleware'=>['auth','isClient']],function (){
         Route::get('/dashboard',        ['uses'=>'ClientController@dashboardView',          'as'=>'dashboardView']);
         Route::get('/prices',           ['uses'=>'ClientController@prices',                 'as'=>'dashboardPrices']);
@@ -36,8 +39,6 @@ Route::group(['prefix'=>'client'],function (){
         Route::get('/profile',          ['uses'=>'ClientController@profile',                'as'=>'dashboardProfile']);
         Route::get('/settings',         ['uses'=>'ClientController@settings',               'as'=>'dashboardSettings']);
         Route::post('/settings',        ['uses'=>'ClientController@editCompany',            'as'=>'editCompany']);
-        Route::post('/price_dim',       ['uses'=>'ClientController@price_dim',              'as'=>'price_dim']);
-        Route::post('/add_price',       ['uses'=>'ClientController@add_price',              'as'=>'add_price']);
     });
 });
 
@@ -50,6 +51,9 @@ Route::group(['middleware'=>'auth'],function (){
     Route::post('/client_edit',        ['middleware'=>'IsAdmin','uses'=>'AdminController@edit',                     'as'=>'edit']);
     Route::get('/add_client',          ['middleware'=>'IsAdmin','uses'=>'AdminController@add_client_view',          'as'=>'add_client_view']);
     Route::post('/add_client',         ['middleware'=>'IsAdmin','uses'=>'AdminController@add_client',               'as'=>'add_client']);
+    Route::get('/prices',              ['middleware'=>'IsAdmin','uses'=>'AdminController@prices',                   'as'=>'admin_prices']);
+    Route::post('/prices',             ['middleware'=>'IsAdmin','uses'=>'AdminController@edit_prices',              'as'=>'edit_prices']);
+
 
 });
 
